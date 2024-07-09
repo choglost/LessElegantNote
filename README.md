@@ -15,4 +15,5 @@
 ## 致谢
 - 本项目是在[南京大学学位论文 Typst 模板 modern-nju-thesis ](https://github.com/nju-lug/modern-nju-thesis)的基础上修改而成的。本项目的文件结构可参考modern-nju-thesis项目文档。
 - 灵感来源于[ElegantBook: 优美的 LaTeX 书籍模板](https://github.com/ElegantLaTeX/ElegantBook)。
+
 感谢他们的工作。
