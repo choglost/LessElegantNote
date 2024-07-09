@@ -1,9 +1,7 @@
-# elegant-note
+# ElegantNote
 
 ## 项目简介
-一个基于Typst的笔记模板。
-
-An elegant Typst template for notes.
+一个基于Typst的笔记模板。An elegant Typst template for notes.
 
 在[南京大学学位论文 Typst 模板 modern-nju-thesis ](https://github.com/nju-lug/modern-nju-thesis)的基础上修改而成。
 
@@ -12,7 +10,7 @@ An elegant Typst template for notes.
 感谢他们的工作。
 
 ## 使用指南
-* https://typst.app/docs
+* [Typst官方文档](https://typst.app/docs)
 * /template/notebook.typ
 
 ## 更新计划
