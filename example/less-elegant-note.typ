@@ -49,7 +49,7 @@
 + 例如可在LessElegantNote下新建一个mynotes文件夹，在其中新建一个 数学.typ 文件，并输入如下基础内容。
 
 ```typst
-#import "../lib.typ": documentclass, indent
+#import "../lib.typ": *
 
 #let (
   // 布局函数
