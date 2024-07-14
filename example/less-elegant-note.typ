@@ -1,6 +1,5 @@
 #import "../lib.typ": *
 
-
 #let (
   // 布局函数
   twoside, doc,  mainmatter,  appendix, preface,
@@ -10,7 +9,7 @@
   twoside: false,  // 双面模式，会加入空白页，便于打印
 
   info: (
-    title: ("LessElegantNote：\n一个Typst笔记模版"),
+    title: ("LessElegantNote：一个Typst笔记模版"),
     author: "IxionWheel",
     submit-date: datetime.today(),
     cover-image: "../example/images/cover.jpg", // 封面图片路径，注意是相对于pages/elgeant-cover.typ的路径

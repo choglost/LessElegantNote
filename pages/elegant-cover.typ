@@ -46,5 +46,5 @@
   text(font: 字体.楷体, size: 字号.小四)[#h(50pt)作者：#info.author]
   v(0pt)
   text(font: 字体.楷体, size: 字号.小四)[#h(50pt)日期：#info.date]
-  v(30pt)
+  v(50pt)
 }

@@ -22,8 +22,8 @@
 ) = {
   // 默认参数
   info = (
-    title: ("基于Typst的笔记模版"),
-    author: "张三",
+    title: ("LessElegantNote：一个Typst笔记模版"),
+    author: "IxionWheel",
     date: datetime.today(),
   ) + info
 

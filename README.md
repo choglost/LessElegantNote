@@ -9,8 +9,8 @@
 ## 使用指南
 1. 下载本项目并解压。
 2. 在vscode中打开项目文件夹。
-3. 安装vscode插件 Typst LSP 和 Typst Preview。
-4. 参照/template/notebook.typ，创建你自己的笔记，按 “ctrl + k,v” 即可预览。
+3. 安装vscode插件Tinymist Typst。
+4. 参照/example/less-elegant-note.typ，创建你自己的笔记。
 
 ## 致谢
 - 本项目是在[南京大学学位论文 Typst 模板 modern-nju-thesis ](https://github.com/nju-lug/modern-nju-thesis)的基础上修改而成的。文件结构可参考modern-nju-thesis项目文档。
