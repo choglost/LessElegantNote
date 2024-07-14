@@ -1,7 +1,7 @@
 # LessElegantNote
 
 ## 项目简介
-一个基于Typst的笔记模板。
+一个Typst笔记模板。
 
 ## 学习资源
 * [Typst官方文档](https://typst.app/docs)
@@ -10,10 +10,10 @@
 1. 下载本项目并解压。
 2. 在vscode中打开项目文件夹。
 3. 安装vscode插件Tinymist Typst。
-4. 参照/example/less-elegant-note.typ，创建你自己的笔记。
+4. 参考/example/less-elegant-note.pdf，创建你自己的笔记。
 
 ## 致谢
-- 本项目是在[南京大学学位论文 Typst 模板 modern-nju-thesis ](https://github.com/nju-lug/modern-nju-thesis)的基础上修改而成的。文件结构可参考modern-nju-thesis项目文档。
+- 本项目是在[南京大学学位论文 Typst 模板 modern-nju-thesis ](https://github.com/nju-lug/modern-nju-thesis)的基础上修改而成的。
 - 灵感来源于[ElegantBook: 优美的 LaTeX 书籍模板](https://github.com/ElegantLaTeX/ElegantBook)。
 
 感谢他们的工作。
