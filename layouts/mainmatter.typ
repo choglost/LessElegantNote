@@ -1,19 +1,21 @@
 #import "@preview/i-figured:0.2.4"
-#import "@preview/cuti:0.2.1": show-cn-fakebold
+#import "@preview/codly:0.2.1": *
+
 #import "../utils/style.typ": 字号, 字体
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "../utils/indent.typ": fake-par
 #import "../utils/unpairs.typ": unpairs
 
+
 #let mainmatter(
   // documentclass 传入参数
   twoside: false,
-  fonts: (:),
+  info :(:),
   // 其他参数
   theme-color: rgb("3C71BF"),// 主题色，包括标题、strong类型强调的颜色
   // 正文相关
-  text-font: 字体.宋体, 
+  text-font: 字体.宋体,
   text-size: 字号.五号,
   par-leading: 0.7em,// 行距
   par-spacing: 0.7em,// 段间距
@@ -21,7 +23,6 @@
   strong-font: 字体.黑体,
 
   // 标题相关
-  numbering-mode : "literature",// 标题编号，"maths" 数学或论文风格的标题编号 | "literature" 文学风格的标题编号
   heading-font: (字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体),// 标题字体
   heading-size: (字号.三号, 字号.四号, 字号.五号, 字号.五号),
   heading-weight: ("regular", "regular", "regular", ),
@@ -40,8 +41,12 @@
   ..args,
   it,
 ) = {
+  // 默认参数
+  info = (
+    numbering-style: "literature",
+  ) + info
   // 处理 heading- 开头的其他参数
-  heading-fill=(theme-color,)
+  heading-fill = (theme-color,)
   let heading-text-args-lists = args.named().pairs().filter(pair => pair.at(0).starts-with("heading-")).map(pair => (
     pair.at(0).slice("heading-".len()),
     pair.at(1),
@@ -59,23 +64,31 @@
   show par: set block(spacing: par-spacing)
 
   // 特殊类型文本
-  show raw: it=>{
+  // 代码块
+
+  show: codly-init.with()
+  codly(display-name: false)
+
+  // set block(width: 60%)
+  show raw: it => {
     set text(font: 字体.等宽)
-    it
-  }
-  show emph: it=>{
-    set text(weight: "bold")
-    show: show-cn-fakebold // 伪加粗
+    
     it
   }
 
-  show strong:it=>{
-    set text(font: strong-font,theme-color)
+  show emph: it => {
+    set text(weight: "bold")
+    // show: show-cn-fakebold // 伪加粗
+    it
+  }
+
+  show strong: it => {
+    set text(font: strong-font, theme-color)
     it
   }
 
   // 设置脚注
-  show footnote.entry: set text(font: fonts.宋体, size: 字号.五号)
+  show footnote.entry: set text(font: 字体.宋体, size: 字号.五号)
   // 设置 equation 的编号和假段落首行缩进
   show math.equation.where(block: true): i-figured.show-equation
   // 设置 figure 的编号，表格表头置顶 + 不用冒号用空格分割 + 样式
@@ -83,11 +96,11 @@
   show figure: i-figured.show-figure
   show figure.where(kind: table): set figure.caption(position: top)
   set figure.caption(separator: "  ")
-  show figure.caption: set text(font: fonts.宋体, size: 字号.小五)
+  show figure.caption: set text(font: 字体.宋体, size: 字号.小五)
 
   // 处理标题
   // 设置标题的 numbering
-  set heading(numbering: custom-numbering.with(mode:numbering-mode))
+  set heading(numbering: custom-numbering.with(style: info.numbering-style))
   // counter(heading).update(0)
   show heading: it => {
     // 设置字体字号
@@ -121,7 +134,7 @@
 
   // 处理列表
   // 无序列表 list
-  set list(indent: 1.3em, body-indent: 0.4em, )//marker: ("•","·")
+  set list(indent: 1.3em, body-indent: 0.4em) //marker: ("•","·")
   show list: it => {
     set block(above: 0.7em, below: 0.7em)
     it
@@ -143,9 +156,9 @@
   }
 
   // 表格
-  set table(align: center+horizon)
+  set table(align: center + horizon)
 
-    // 处理页眉
+  // 处理页眉
   set page(..(
     if display-header {
       (
@@ -163,11 +176,15 @@
                 // 一级标题和二级标题
                 let first-level-heading = if not twoside or calc.rem(loc.page(), 2) == 0 {
                   heading-display(active-heading(level: 1, loc))
-                } else {""}
+                } else {
+                  ""
+                }
                 let second-level-heading = if not twoside or calc.rem(loc.page(), 2) == 2 {
                   heading-display(active-heading(level: 2, prev: false, loc))
-                } else {""}
-                set text(font: fonts.楷体, size: 字号.五号)
+                } else {
+                  ""
+                }
+                set text(font: 字体.楷体, size: 字号.五号)
                 stack(
                   first-level-heading + h(1fr) + second-level-heading,
                   v(0.25em),
@@ -178,7 +195,7 @@
               } else {
                 header-render(loc)
               }
-              v(0em)// header-vspace
+              v(0em) // header-vspace
             }
           })
         },
@@ -202,6 +219,8 @@
     ]
   ])
   counter(page).update(1)
+
+
 
   it
 }

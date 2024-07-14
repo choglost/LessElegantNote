@@ -6,7 +6,6 @@
 #let outline-page(
   // documentclass 传入参数
   twoside: false,
-  fonts: (:),
   // 其他参数
   depth: 3,
   title: "目　录",
@@ -27,17 +26,16 @@
   ..args,
 ) = {
   // 1.  默认参数
-  fonts = 字体 + fonts
   if (title-text-args == auto) {
-    title-text-args = (font: fonts.黑体, size: 字号.三号,)//  weight: "bold"
+    title-text-args = (font: 字体.黑体, size: 字号.三号,)//  weight: "bold"
   }
   // 引用页数的字体，这里用于显示 Times New Roman
   if (reference-font == auto) {
-    reference-font = fonts.宋体
+    reference-font = 字体.宋体
   }
   // 字体与字号
   if (font == auto) {
-    font = (fonts.黑体, fonts.宋体)
+    font = (字体.黑体, 字体.宋体)
   }
 
   // 2.  正式渲染

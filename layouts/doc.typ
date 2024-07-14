@@ -1,13 +1,14 @@
 // 文稿设置，可以进行一些像页面边距这类的全局设置
 #import "@preview/cuti:0.2.1": show-cn-fakebold
 
+
 #let doc(
   // documentclass 传入参数
   info: (:),
   // 其他参数
   fallback: false,  // 字体缺失时使用 fallback，不显示豆腐块
   lang: "zh",
-  margin: (x:35pt,y:35pt),
+  margin: ((x:40pt,y:40pt)),
   it,
 ) = {
   // 1.  默认参数
