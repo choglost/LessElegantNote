@@ -1,7 +1,7 @@
 # LessElegantNote
 
 ## 项目简介
-一个基于Typst的笔记模板。A Typst template for notes.
+一个基于Typst的笔记模板。
 
 ## 学习资源
 * [Typst官方文档](https://typst.app/docs)
