@@ -17,3 +17,10 @@
 - 灵感来源于[ElegantBook: 优美的 LaTeX 书籍模板](https://github.com/ElegantLaTeX/ElegantBook)。
 
 感谢他们的工作。
+
+## 开发计划
+1. 编写详细的参考文档。
+2. 参照ElegantBook修改、完善项目：
+   - 数学环境支持，如定理、证明、例题。
+   - 页面美化，如主题颜色、封面、标题格式的自定义。
+   - 其他页面，如前言、参考文献。
