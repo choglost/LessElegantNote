@@ -1,4 +1,5 @@
 #import "@preview/i-figured:0.2.4"
+#import "@preview/cuti:0.2.1": show-cn-fakebold
 #import "../utils/style.typ": 字号, 字体
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
@@ -10,122 +11,104 @@
   twoside: false,
   fonts: (:),
   // 其他参数
-  leading: 0.7em,
-  spacing: 0.7em,
-  justify: true,
-  first-line-indent: 2em,
-  numbering: custom-numbering.with(first-level: "第一章 ", second-level: "第一节 ", third-level: "一、", forth-level: "（1）", depth: 4, "1.1 "),
-  // 正文字体与字号参数
-  text-args: auto,
-  // 标题字体与字号
-  heading-font: auto,
-  // heading-font : (fonts.黑体,fonts.黑体,fonts.黑体,fonts.黑体,),
-  heading-size: (字号.三号, 字号.四号, 字号.小四, 字号.五号,),
+  theme-color: rgb("3C71BF"),// 主题色，包括标题、strong类型强调的颜色
+  // 正文相关
+  text-font: 字体.宋体, 
+  text-size: 字号.五号,
+  par-leading: 0.7em,// 行距
+  par-spacing: 0.7em,// 段间距
+  // 特殊类型文本
+  strong-font: 字体.黑体,
+
+  // 标题相关
+  numbering-mode : "literature",// 标题编号，"maths" 数学或论文风格的标题编号 | "literature" 文学风格的标题编号
+  heading-font: (字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体),// 标题字体
+  heading-size: (字号.三号, 字号.四号, 字号.五号, 字号.五号),
   heading-weight: ("regular", "regular", "regular", ),
-  heading-above: (2em, 1em, 0.8em, 0.7em), 
-  heading-below: (1em, 1em, 0.8em, 0.7em),
-  heading-pagebreak: (true, false),
-  heading-align: (center, auto),
-  heading-fill: (black, black, black, black),
-  // 页眉
+  heading-above: (2em, 1.5em, 1em, 0.7em),
+  heading-below: (2em, 1.5em, 1em, 0.7em),  // 标题下方
+  heading-pagebreak: (true, false), // 标题换页
+  heading-align: (center, auto),  // 标题居中
+  heading-fill: (black,), // 标题颜色
+  // 页眉相关
   header-render: auto,
-  header-vspace: 0em,
   display-header: false,
   skip-on-first-level: true,
   stroke-width: 0.5pt,
   reset-footnote: false,
-  // caption 的 separator
-  separator: "  ",
-  // caption 样式
-  // caption-style: strong,
-  caption-size: 字号.小五,
-  // figure 计数
-  show-figure: i-figured.show-figure,
-  // equation 计数
-  show-equation: i-figured.show-equation,
+
   ..args,
   it,
 ) = {
-  // 0.  标志前言结束
-  // 配置页码和页脚
-  set page(footer: [
-    #align(center)[
-      #text(counter(page).display("1"))
-    ]
-  ])
-  counter(page).update(1)
+  // 处理 heading- 开头的其他参数
+  heading-fill=(theme-color,)
+  let heading-text-args-lists = args.named().pairs().filter(pair => pair.at(0).starts-with("heading-")).map(pair => (
+    pair.at(0).slice("heading-".len()),
+    pair.at(1),
+  ))
 
-  // 1.  默认参数
-  // TODO:设置可供选择的标题样式
-  // if title-numbering == "type-1"{
-
-  // }
-  fonts = 字体 + fonts
-  if (text-args == auto) {
-    text-args = (font: fonts.宋体, size: 字号.五号)
-  }
-  // 1.1 字体与字号
-  if (heading-font == auto) {
-    heading-font = (fonts.黑体, fonts.黑体, fonts.黑体, fonts.黑体,)
-  }
-  // 1.2 处理 heading- 开头的其他参数
-  let heading-text-args-lists = args.named().pairs()
-  .filter((pair) => pair.at(0).starts-with("heading-"))
-  .map((pair) => (pair.at(0).slice("heading-".len()), pair.at(1)))
-
-  // 2.  辅助函数
+  // 辅助函数
   let array-at(arr, pos) = {
     arr.at(calc.min(pos, arr.len()) - 1)
   }
 
-  // 3.  设置基本样式
-  // 3.1 文本和段落样式
-  set text(..text-args)
-  set par(leading: leading, justify: justify, first-line-indent: first-line-indent)
-  show par: set block(spacing: spacing)
-  show raw: set text(font: fonts.等宽)
-  // 强调文本
-  show emph: text.with(weight:"bold")//,weight:"bold",font: ("Linux Libertine", "STKaiti")
+  // 文本和段落样式
+  set text(font: text-font, size: text-size)
 
-  // show strong: text.with(red)
-  // 3.2 脚注样式
+  set par(leading: par-leading, justify: true, first-line-indent: 2em)
+  show par: set block(spacing: par-spacing)
+
+  // 特殊类型文本
+  show raw: it=>{
+    set text(font: 字体.等宽)
+    it
+  }
+  show emph: it=>{
+    set text(weight: "bold")
+    show: show-cn-fakebold // 伪加粗
+    it
+  }
+
+  show strong:it=>{
+    set text(font: strong-font,theme-color)
+    it
+  }
+
+  // 设置脚注
   show footnote.entry: set text(font: fonts.宋体, size: 字号.五号)
-  // 3.3 设置 figure 的编号
+  // 设置 equation 的编号和假段落首行缩进
+  show math.equation.where(block: true): i-figured.show-equation
+  // 设置 figure 的编号，表格表头置顶 + 不用冒号用空格分割 + 样式
   show heading: i-figured.reset-counters
-  show figure: show-figure
-  // 3.4 设置 equation 的编号和假段落首行缩进
-  show math.equation.where(block: true): show-equation
-  // 3.5 表格表头置顶 + 不用冒号用空格分割 + 样式
+  show figure: i-figured.show-figure
   show figure.where(kind: table): set figure.caption(position: top)
-  set figure.caption(separator: separator)
-  // show figure.caption: caption-style
+  set figure.caption(separator: "  ")
   show figure.caption: set text(font: fonts.宋体, size: 字号.小五)
 
-  // 4.  处理标题
-  // 4.1 设置标题的 Numbering 和计数器
-  set heading(numbering: numbering)
-  counter(heading).update(0)
-  // 4.2 设置字体字号并加入假段落模拟首行缩进
+  // 处理标题
+  // 设置标题的 numbering
+  set heading(numbering: custom-numbering.with(mode:numbering-mode))
+  // counter(heading).update(0)
   show heading: it => {
+    // 设置字体字号
     set text(
       font: array-at(heading-font, it.level),
       size: array-at(heading-size, it.level),
       weight: array-at(heading-weight, it.level),
       fill: array-at(heading-fill, it.level),
-      ..unpairs(heading-text-args-lists
-      .map((pair) => (pair.at(0), array-at(pair.at(1), it.level)))),
+      ..unpairs(heading-text-args-lists.map(pair => (pair.at(0), array-at(pair.at(1), it.level)))),
     )
     set block(above: array-at(heading-above, it.level), below: array-at(heading-below, it.level))
     it
-    fake-par
+    fake-par //加入假段落模拟首行缩进
   }
 
-  // 4.3 标题居中与自动换页
+  // 标题居中与自动换页
   show heading: it => {
-    if (array-at(heading-pagebreak, it.level)) { // 如果要换页（是一级标题）
+    if (array-at(heading-pagebreak, it.level)) {
       // 如果打上了 no-auto-pagebreak 标签，则不自动换页
       if ("label" not in it.fields() or str(it.label) != "no-auto-pagebreak") {
-        // pagebreak(weak: true)
+        pagebreak(weak: true)
       }
     }
     if (array-at(heading-align, it.level) != auto) {
@@ -136,74 +119,89 @@
     }
   }
 
-  // 5. 处理页眉
-  set page(
-    ..(
-      if display-header {
-        (
-          header: {
-            // 重置 footnote 计数器
-            if reset-footnote {
-              counter(footnote).update(0)
-            }
-            locate(
-              loc => {
-                // 5.1 获取当前页面的一级标题
-                let cur-heading = current-heading(level: 1, loc)
-                // 5.2 如果当前页面没有一级标题，则渲染页眉
-                if not skip-on-first-level or cur-heading == none {
-                  if header-render == auto {
-                    // 一级标题和二级标题
-                    let first-level-heading = if not twoside or calc.rem(loc.page(), 2) == 0 { heading-display(active-heading(level: 1, loc)) } else { "" }
-                    let second-level-heading = if not twoside or calc.rem(loc.page(), 2) == 2 { heading-display(active-heading(level: 2, prev: false, loc)) } else { "" }
-                    set text(font: fonts.楷体, size: 字号.五号)
-                    stack(
-                      first-level-heading + h(1fr) + second-level-heading,
-                      v(0.25em),
-                      if first-level-heading != "" or second-level-heading != "" { line(length: 100%, stroke: stroke-width + black) },
-                    )
-                  } else {
-                    header-render(loc)
-                  }
-                  v(header-vspace)
-                }
-              },
-            )
-          },
-        )
-      } else {
-        (header: {
+  // 处理列表
+  // 无序列表 list
+  set list(indent: 1.3em, body-indent: 0.4em, )//marker: ("•","·")
+  show list: it => {
+    set block(above: 0.7em, below: 0.7em)
+    it
+    fake-par
+  }
+  // 有序列表 enum
+  set enum(indent: 0.8em, body-indent: 0.4em, numbering: "1.")
+  show enum: it => {
+    set block(above: 0.7em, below: 0.7em)
+    it
+    fake-par
+  }
+  // 术语列表 terms
+  set terms(indent: 0em, hanging-indent: 2.65em)
+  show terms: it => {
+    set block(above: 0.7em, below: 0.7em)
+    it
+    fake-par
+  }
+
+  // 表格
+  set table(align: center+horizon)
+
+    // 处理页眉
+  set page(..(
+    if display-header {
+      (
+        header: {
           // 重置 footnote 计数器
           if reset-footnote {
             counter(footnote).update(0)
           }
-        })
-      }
-    ),
-  )
+          locate(loc => {
+            // 5.1 获取当前页面的一级标题
+            let cur-heading = current-heading(level: 1, loc)
+            // 5.2 如果当前页面没有一级标题，则渲染页眉
+            if not skip-on-first-level or cur-heading == none {
+              if header-render == auto {
+                // 一级标题和二级标题
+                let first-level-heading = if not twoside or calc.rem(loc.page(), 2) == 0 {
+                  heading-display(active-heading(level: 1, loc))
+                } else {""}
+                let second-level-heading = if not twoside or calc.rem(loc.page(), 2) == 2 {
+                  heading-display(active-heading(level: 2, prev: false, loc))
+                } else {""}
+                set text(font: fonts.楷体, size: 字号.五号)
+                stack(
+                  first-level-heading + h(1fr) + second-level-heading,
+                  v(0.25em),
+                  if first-level-heading != "" or second-level-heading != "" {
+                    line(length: 100%, stroke: stroke-width + black)
+                  },
+                )
+              } else {
+                header-render(loc)
+              }
+              v(0em)// header-vspace
+            }
+          })
+        },
+      )
+    } else {
+      (
+        header: {
+          // 重置 footnote 计数器
+          if reset-footnote {
+            counter(footnote).update(0)
+          }
+        },
+      )
+    }
+  ))
 
-  // 6 处理列表
-  // 6.1 无序列表 list
-  set list(indent: 1.1em,body-indent: 0.5em)
-  show list:it=>{
-    set block(above: 0.7em, below: 0.7em)
-    it
-    fake-par
-  }
-  // 6.2 有序列表 enum
-  set enum(indent: 0.8em,body-indent: 0.45em)
-  show enum:it=>{
-    set block(above: 0.7em, below: 0.7em)
-    it
-    fake-par
-  }
-  // 6.3 术语列表 terms
-  set terms(indent: 0em,hanging-indent: 2.65em)
-  show terms:it=> {
-    set block(above: 0.7em, below: 0.7em)
-    it
-    fake-par
-  }
+  // 处理页脚的页码
+  set page(footer: [
+    #align(center)[
+      #text(counter(page).display("1"))
+    ]
+  ])
+  counter(page).update(1)
 
   it
 }

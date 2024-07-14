@@ -4,7 +4,7 @@
 #import "layouts/appendix.typ": appendix
 
 #import "pages/fonts-display-page.typ": fonts-display-page
-#import "pages/simple-cover.typ": simple-cover
+#import "pages/elegant-cover.typ": elegant-cover
 #import "pages/outline-page.typ": outline-page
 
 #import "utils/custom-cuti.typ": *
@@ -26,7 +26,7 @@
     title: ("基于Typst的笔记模版"),
     author: "张三",
     date: datetime.today(),
-    cover-image:"../assets/cover.png",
+
   ) + info
 
   (
@@ -72,7 +72,7 @@
 
     // 封面页
     cover: (..args) => {
-      simple-cover(
+      elegant-cover(
         twoside: twoside,
         ..args,
         fonts: fonts + args.named().at("fonts", default: (:)),

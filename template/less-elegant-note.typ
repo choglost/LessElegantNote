@@ -9,7 +9,7 @@
   twoside: false,  // 双面模式，会加入空白页，便于打印
 
   info: (
-    title: ("基于Typst的笔记模版"),
+    title: ("LessElegantNote: Typst笔记模版"),
     author: "张三",
     submit-date: datetime.today(),
     // cover-image: "",
@@ -19,27 +19,45 @@
 // 文稿设置
 #show: doc
 
-
-// 字体显示测试页
-#fonts-display-page()
-
 // 封面页
 #cover()
 
+// 前言部分
 #show: preface
-
 
 // 目录
 #outline-page()
 
-// 正文
+// 字体显示测试页
+#fonts-display-page()
+
+// 正文部分
 #show: mainmatter
 
-= 导　论
+= 模版下载与使用
+== 模版下载
+
+== 模版使用
+
+= 模版设置说明
+== 封面设置
+
+== 文章格式设置
+=== 正文格式
+=== 标题格式
+=== 列表格式
+
+= 写作示例
 
 == 列表
 
 === 无序列表
+// ```Typst
+// - 无序列表项一
+// - 无序列表项二
+//   - 无序子列表项一
+//   - 无序子列表项二
+// ```
 
 - 无序列表项一
 - 无序列表项二
@@ -90,7 +108,7 @@
 ]))
 
 #figure(
-  image("images/cover.png", width: 20%),
+  image("images/cover.jpg", width: 20%),
   caption: [图片测试],
 ) <cover>
 
@@ -127,36 +145,15 @@ $ F_n = floor(1 / sqrt(5) phi.alt^n) $
 
 
 // 手动分页
-#if twoside {
-  pagebreak() + " "
-}
-
-= 正　文
-
-== 正文子标题
-
-=== 正文子子标题
-
-正文内容
-
-
-// 手动分页
 // #if twoside {
 //   pagebreak() + " "
 // }
-
-
 
 // 附录
 #show: appendix
 
 = 附录
 
-== 附录子标题
+== 子标题
 
-附录内容，这里也可以加入图片，例如@fig:appendix-img。
-
-#figure(
-  image("images/cover.png", width: 20%),
-  caption: [图片测试],
-) <appendix-img>
+附录内容

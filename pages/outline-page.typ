@@ -18,8 +18,7 @@
   reference-size: 字号.小五,
   // 字体与字号
   font: auto,
-  size: (字号.小五,),
-  // size: (字号.四号, 字号.小四),
+  size: (字号.小五,),// size: (字号.四号, 字号.小四),
   // 垂直间距
   vspace: (8pt, 6pt),
   indent: (0pt, 8pt, 16pt),

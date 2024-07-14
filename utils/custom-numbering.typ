@@ -1,68 +1,23 @@
 // 一个简单的自定义 Numbering
-// 用法也简单，可以特殊设置一级等标题的样式，以及一个缺省值
-#let custom-numbering(base: 1, depth: 5, first-level: auto, second-level: auto, third-level: auto, forth-level: auto, format, ..args) = {
-  // [s]
-  if (args.pos().len() > depth) {
-    return
-  }
+#let custom-numbering(mode:"literature",..args) = {
+  let literature-numbering=("第一章 ","第一节 ","一、","　　（一）")
+  let maths-numbering=("第一章 ","1.1 ","1.1.1 ","（1）")
+  
+  let heading-numbering=""
 
-  if (first-level != auto and args.pos().len() == 1) {
-    if (first-level != "") {
-      numbering(first-level, args.pos().last())
-    }
-    return
+  let level = args.pos().len()
+  // // let heading-numbering = ""
+  // // heading-numbering = args.pos().at(level - 1)
+  // if level
+  if(mode=="literature"){
+    heading-numbering=literature-numbering.at(level - 1)
+    numbering(heading-numbering, args.pos().last())
+  }else if(mode=="maths"){
+    heading-numbering=maths-numbering.at(level - 1)
+    numbering(heading-numbering, ..args)
+  }else{
+    
   }
-
-  if (second-level != auto and args.pos().len() == 2) {
-    if (second-level != "") {
-      numbering(second-level, args.pos().last())
-    }
-    return
-  }
-  if (third-level != auto and args.pos().len() == 3) {
-    if (third-level != "") {
-      numbering(third-level, args.pos().last())
-    }
-    return
-  }
-  if (forth-level != auto and args.pos().len() == 4) {
-    if (forth-level != "") {
-      numbering(forth-level, args.pos().last())
-    }
-    return
-  }
-  // default
-  if (args.pos().len() >= base) {
-    numbering(format, args.pos().last())
-    return
-  }
+  
+  return
 }
-
-// #let custom-numbering(base: 1, depth: 5, first-level: auto, second-level: auto, third-level: auto, format, ..args) = {
-//   if (args.pos().len() > depth) {
-//     return
-//   }
-//   if (first-level != auto and args.pos().len() == 1) {
-//       if (first-level != "") {
-//           numbering(first-level, ..args)
-//       }
-//       return
-//   }
-//   if (second-level != auto and args.pos().len() == 2) {
-//       if (second-level != "") {
-//           numbering(second-level, ..args)
-//       }
-//       return
-//   }
-//   if (third-level != auto and args.pos().len() == 3) {
-//       if (third-level != "") {
-//           numbering(third-level, ..args)
-//       }
-//       return
-//   }
-//   // default
-//   if (args.pos().len() >= base) {
-//       numbering(format, ..(args.pos().slice(base - 1)))
-//       return
-//   }
-// }
