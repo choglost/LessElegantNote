@@ -10,18 +10,19 @@
 
 **项目效果预览**：
 
-<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/cover-example.png" width="40%">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/outline-example.png" width="44%">
+<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/cover-example.png" width="38%">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/outline-example.png" width="40%">
 
-<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/chinese-example.png" width="40%">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/maths-example.png" width="44%">
+<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/chinese-example.png" width="40%">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/maths-example.png" width="40%">
+
 ## 使用指南 Mannual
 1. 下载本项目并解压。
 2. 在vscode中打开项目文件夹，安装插件Tinymist Typst。
 3. 参考/example/less-elegant-note.typ，创建你自己的笔记。
 
-## Typst文档和社区
+## 学习文档和社区 TypstUniverse
 * [Typst官方文档](https://typst.app/docs)
 * Typst非官方交流QQ群：793548390
-* 
+* [Typst中文教程（小蓝书）](https://typst-doc-cn.github.io/tutorial/introduction.html)
 
 ## 更新目标（不定期）
 1. 完善参考文档
