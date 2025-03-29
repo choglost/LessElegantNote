@@ -8,10 +8,11 @@
 + 页面风格极简而不失优雅，参考了[ElegantBook: 优美的 LaTeX 书籍模板](https://github.com/ElegantLaTeX/ElegantBook)的风格。
 + 数学定理环境支持。导入第三方包，优美地呈现数学定理、证明、引理等。
 
-项目效果预览：
+**项目效果预览**：
 
-<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/cover-example.png" width="40%">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/outline-example.png" width="40%">
+<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/cover-example.png" width="40%">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/outline-example.png" width="44%">
 
+<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/chinese-example.png" width="40%">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/maths-example.png" width="44%">
 ## 使用指南 Mannual
 1. 下载本项目并解压。
 2. 在vscode中打开项目文件夹，安装插件Tinymist Typst。
