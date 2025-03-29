@@ -10,9 +10,7 @@
 
 项目效果预览：
 
-![封面](https://github.com/choglost/LessElegantNote/blob/main/example/images/cover-example.png)
-
-![目录](https://github.com/choglost/LessElegantNote/blob/main/example/images/outline-example.png)
+<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/cover-example.png" width="40%">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/outline-example.png" width="40%">
 
 ## 使用指南 Mannual
 1. 下载本项目并解压。
