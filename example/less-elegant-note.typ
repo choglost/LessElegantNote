@@ -1,268 +1,455 @@
-#import "../lib.typ": *
+// 模板示例。包含模板介绍和一些Typst用法。
+
+#import "/less-elegant-note/lib.typ": *
 
 #let (
-  // 布局函数
-  twoside, doc,  mainmatter,  appendix, preface,
-  // 页面函数
-  fonts-display-page, cover, outline-page, 
+  // 布局
+  doc, // 基本文档设置
+  mainmatter, // 正文格式设置
+  appendix, // 附录格式设置
+  // 页面
+  cover, // 封面
+  fonts-display-page,// 字体测试页
+  outline-page, // 目录页
 ) = documentclass(
-  twoside: false,  // 双面模式，会加入空白页，便于打印
-
+  // 文档信息，会显示在封面
   info: (
-    title: ("LessElegantNote：一个Typst笔记模版"),
-    author: "IxionWheel",
-    submit-date: datetime.today(),
+    title: ("LessElegantNote：Typst笔记模版"), // 笔记文档的名字
+    author: "choglost", // 作者
+    date: datetime.today(), // 时间，或者写成 (month:1,day:1,year:2000)
     cover-image: "../example/images/cover.jpg", // 封面图片路径，注意是相对于pages/elgeant-cover.typ的路径
-    numbering-style:"maths" // "maths"：数学或论文风格的标题编号 | "literature"：文学风格的标题编号
+    numbering-style:"maths" // "maths"：数学或论文风格的标题编号 1.1.1  ; "literature"：文学风格的标题编号 第一章/节
   ),
 )
 
-// 文稿设置
 #show: doc
 
-// 封面页
+#cover() // 显示封面页
+
+#outline-page() // 显示目录页
+
+#fonts-display-page() // 显示字体测试页
+
+
+#show: mainmatter // 显示正文部分
+
+#heading(numbering:none)[序言] // 序言标题不必编号
+
+== 模版简介
+这是一个Typst笔记模板。页面美观，易于自定义。
+
+重要说明：由于社区很活跃，本项目可能由于 Typst 或者第三方包的更新而出现报错，您可以自行更新相关包到最新版本，或者避免使用相关包。
+
+= 模版使用
+== 让我们开始！
++ 下载模板
+  + 打开本项目的Github页面（https://github.com/choglost/LessElegantNote）。
+  + 点击绿色`Code`按钮，下载ZIP压缩包，然后解压到你喜欢的位置。
++ 打开模板
+  + 在VSCode中打开整个文件夹，并安装_Tinymist Typst_插件。
+  + 打开example/less-elegant-note.typ，按F1使用插件的`Typst Preview`功能，检查能否预览。
++ 使用模版
+  + 新建一个文件夹并在VSCode中打开（可取名`mynotes`），把本项目复制到`mynotes`文件夹下，再在`mynotes`下创建一个 `数学.typ` 文件。
+  + 参照本文档`less-elegant-note.typ`，编写你自己的笔记。比如可在`数学.typ`内这样写：
+```typst
+#import "/less-elegant-note/lib.typ": *
+
+#let (
+  doc, mainmatter,cover,outline-page,
+) = documentclass(
+  info: (
+    title: ("我的数学笔记"),
+    author: "张三",
+    date: datetime.today(),
+    cover-image: none,
+    numbering-style:"maths"
+  ),
+)
+
+#show: doc
 #cover()
 
-// 前言部分
-#show: preface
-
-// 目录
-#outline-page()
-
-// 字体显示测试页
-// #fonts-display-page()
-
-// 正文部分
 #show: mainmatter
 
+= 高数
+今天开始学习高数！
 
-= 模版简介
-本项目是一个Typst笔记模板。
-== 模版下载
-+ 打开项目Github页面（https://github.com/IxionWheel/LessElegantNote）。
-+ 点击绿色Code按钮，下载ZIP压缩包。
-+ 解压到你喜欢的位置。
-+ 在vscode中_打开整个文件夹_，并安装_Tinymist Typst_插件。
-+ 打开example/less-elegant-note.typ，检查能否预览。
-== 模版使用
-+ 参照less-elegant-note.typ，编写你自己的笔记。
-+ 例如可在LessElegantNote下新建一个mynotes文件夹，在其中新建一个 数学.typ 文件，并输入如下基础内容。
 
-```typst
-#import "../lib.typ": *
-
-#let (
-  // 布局函数
-  twoside, doc,  mainmatter,  appendix, preface,
-  // 页面函数
-  fonts-display-page, cover, outline-page, 
-) = documentclass(
-  twoside: false,  // 双面模式，会加入空白页，便于打印
-  info: (
-    title: ("数学笔记"),
-    author: "张三",
-    submit-date: datetime.today(),
-    cover-image: "", // 封面图片路径，注意是相对于pages/elgeant-cover.typ的路径
-    numbering-style:"maths" // "maths"：数学或论文风格的标题编号 | "literature"：文学风格的标题编号
-  ),
-)
-// 文稿设置
-#show: doc
-
-#cover()// 封面页
-
-// 前言部分
-#show: preface
-
-#outline-page()// 目录
-
-// 正文部分
-#show: mainmatter
-
-= 章节标题
-
-== 子标题
-
-正文内容
 ```
+== 模板自定义设置
+=== 封面自定义
+=== 文章格式设置
+==== 正文格式
+==== 标题格式
+==== 列表格式
 
-= 模版设置说明
-== 封面设置
-
-== 文章格式设置
-=== 正文格式
-=== 标题格式
-=== 列表格式
-
-= 写作示例
+= Typst基本语法
 
 == 列表
 
 === 无序列表
-```typst
-- 无序列表项一
-- 无序列表项二
-  - 无序子列表项一
-  - 无序子列表项二
-```
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 70pt)[
+    ```typst
+    - 无序列表项一
+    - 无序列表项二
+      - 无序子列表项一
+      - 无序子列表项二
+    ```
+  ],
+  rect(width: 100%, height: 70pt)[
+    - 无序列表项一
+    - 无序列表项二
+      - 无序子列表项一
+      - 无序子列表项二
+  ],
+)
 
-- 无序列表项一
-- 无序列表项二
-  - 无序子列表项一
-  - 无序子列表项二
 
 === 有序列表
-```typst
-+ 有序列表项一
-+ 有序列表项二
-  + 有序子列表项一
-  + 有序子列表项二
-```
-+ 有序列表项一
-+ 有序列表项二
-  + 有序子列表项一
-  + 有序子列表项二
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 70pt)[
+    ```typst
+    + 有序列表项一
+    + 有序列表项二
+      + 有序子列表项一
+      + 有序子列表项二
+    ```
+  ],
+  rect(width: 100%, height: 70pt)[
+    + 有序列表项一
+    + 有序列表项二
+      + 有序子列表项一
+      + 有序子列表项二
+  ],
+)
 
 === 术语列表
-```typst
-/ 术语一: 术语解释
-/ 术语二: 术语解释
-```
-/ 术语一: 术语解释
-/ 术语二: 术语解释
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 40pt)[
+    ```typst
+    / 术语一: 术语解释
+    / 术语二: 术语解释
+    ```
+  ],
+  rect(width: 100%, height: 40pt)[
+    / 术语一: 术语解释
+    / 术语二: 术语解释
+  ],
+)
+
+
+
 
 == 图表
 
-引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:cover。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。
+// 引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:cover。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。
 
-#align(center, (stack(dir: ltr)[
-  #figure(
-    table(
-      align: center + horizon,
-      columns: 4,
-      [t], [1], [2], [3],
-      [y], [0.3s], [0.4s], [0.8s],
-    ),
-    caption: [常规表],
-  ) <timing>
-][
-  #h(50pt)
-][
-  #figure(
-    table(
-      columns: 4,
-      stroke: none,
-      table.hline(),
-      [t], [1], [2], [3],
-      table.hline(stroke: .5pt),
-      [y], [0.3s], [0.4s], [0.8s],
-      table.hline(),
-    ),
-    caption: [三线表],
-  ) <timing-tlt>
-]))
+=== 常规表
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 120pt)[
+    ```typst
+    #figure(
+      table(
+        columns: 4,
+        [t], [1], [2], [3],
+        [y], [0.3s], [0.4s], [0.8s],
+      ), caption: [常规表],
+    )
+    ```
+  ],
+  rect(width: 100%, height: 120pt)[
+    #figure(
+      table(
+        columns: 4,
+        [t], [1], [2], [3],
+        [y], [0.3s], [0.4s], [0.8s],
+      ),
+      caption: [常规表],
+    )
+  ],
+)
 
-#figure(
-  image("images/cover.jpg", width: 20%),
-  caption: [图片测试],
-) <cover>
+=== 三线表
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 160pt)[
+    ```typst
+    #figure(
+      table(
+        columns: 4,
+        stroke: none,
+        table.hline(),
+        [t], [1], [2], [3],
+        table.hline(stroke: .5pt),
+        [y], [0.3s], [0.4s], [0.8s],
+        table.hline(),
+      ), caption: [三线表],
+    )
+    ```
+  ],
+  rect(width: 100%, height: 160pt)[
+    #figure(
+      table(
+        columns: 4,
+        stroke: none,
+        table.hline(),
+        [t], [1], [2], [3],
+        table.hline(stroke: .5pt),
+        [y], [0.3s], [0.4s], [0.8s],
+        table.hline(),
+      ),
+      caption: [三线表],
+    )
+  ],
+)
 
+=== 图片
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 110pt)[
+    ```typst
+    #figure(
+      image("images/cover.jpg", width: 40%),
+      caption: [图片],
+    )
+    ```
+  ],
+  rect(width: 100%, height: 110pt)[
+    #figure(
+      image("images/cover.jpg", width: 40%),
+      caption: [图片],
+    )
+  ],
+)
 
 == 数学公式
+=== 行内、行间公式
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 70pt)[
+    ```typst
+    可以写行内公式 $x + y$，
 
-可以像 Markdown 一样写行内公式 $x + y$，以及带编号的行间公式：
+    也可以写行间公式
+    $ phi.alt := (1 + sqrt(5)) / 2 $
+    ```
+  ],
+  rect(width: 100%, height: 70pt)[
+    可以写行内公式 $x + y$，
 
-$ phi.alt := (1 + sqrt(5)) / 2 $ <ratio>
+    也可以写行间公式
+    $ phi.alt := (1 + sqrt(5)) / 2 $
+  ],
+)
 
-引用数学公式需要加上 `eqt:` 前缀，则由@eqt:ratio，我们有：
+=== 上下标
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 140pt)[
+    ```typst
+    $accent(a, `)$\
+    $lim_(n->infinity) x_n=a$\
+    $limits(lim)_(n->infinity) x_n=a$\
+    $ attach(
+        Pi, t: alpha, b: beta,
+        tl: 1, tr: 2+3, bl: 4+5, br: 6,
+      ) $\
+    $ binom(n, k) $
+    ```
+  ],
+  rect(width: 100%, height: 140pt)[
+    $accent(a, `)$\
+    $lim_(n->infinity) x_n=a$\
+    $limits(lim)_(n->infinity) x_n=a$\
+    $
+      attach(
+      Pi, t: alpha, b: beta,
+      tl: 1, tr: 2+3, bl: 4+5, br: 6,
+    )
+    $\
+    $ binom(n, k) $
+  ],
+)
 
-$ F_n = floor(1 / sqrt(5) phi.alt^n) $
+=== 矩阵和向量
 
-我们也可以通过 `<->` 标签来标识该行间公式不需要编号
-
-$ y = integral_1^2 x^2 dif x $ <->
-
-而后续数学公式仍然能正常编号。
-
-$ F_n = floor(1 / sqrt(5) phi.alt^n) $
+=== 常用符号
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 140pt)[
+    ```typst
+    单箭头：$->,<-,<->$\
+    双箭头：$=>,arrow.l.double,arrow.l.r.double$\
+    等号：$=,>=,<=,!=,tilde.eq,tilde.equiv$
+    ```
+  ],
+  rect(width: 100%, height: 140pt)[
+    单箭头：$->,<-,<->$\
+    双箭头：$=>,arrow.l.double,arrow.l.r.double$\
+    等号：$=,>=,<=,!=,tilde.eq,tilde.equiv$
+  ],
+)
 
 == 定理环境
-#show: thmrules.with(qed-symbol: $square$)
+#show: thmrules
 
-#theorem("Euclid")[
-  There are infinitely many primes.
-]
 
-#definition[
-  A natural number is called a #highlight[_prime number_] if it is greater
-  than 1 and cannot be written as the product of two smaller natural numbers.
-]
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 400pt)[
+    ```typst
+    #theorem(number: "1.1",title: "title")[
+      #lorem(5)
+    ] <thm1>
 
-#example[
-  The numbers $2$, $3$, and $17$ are prime.
-  @cor_largest_prime shows that this list is not exhaustive!
-]
+    #proof[ It's used to prove @thm1. ]
+    
+    #definition[
+      #lorem(5)
+      #remark[#lorem(5)]
+    ]
+    
+    #lemma[
+      If ..., then
+      + #lorem(5).
+      + #lorem(5).
+    ]
 
-#proof[
-  Suppose to the contrary that $p_1, p_2, dots, p_n$ is a finite enumeration
-  of all primes. Set $P = p_1 p_2 dots p_n$. Since $P + 1$ is not in our list,
-  it cannot be prime. Thus, some prime factor $p_j$ divides $P + 1$.  Since
-  $p_j$ also divides $P$, it must divide the difference $(P + 1) - P = 1$, a
-  contradiction.
-]
+    #example[ #lorem(5) ]
 
-#corollary[
-  There is no largest prime number.
-] <cor_largest_prime>
+    #proof[ #lorem(5) ]
 
-#corollary[
-  There are infinitely many composite numbers.
-]
+    #exercise[
+      #lorem(5)\ 
+      #solution[ #lorem(5) ]
+    ]
 
-#theorem[
-  There are arbitrarily long stretches of composite numbers.
-]
+    #corollary[ #lorem(5) ]
+    ```
+  ],
+  rect(width: 100%, height: 400pt)[
+    #theorem("title")[
+      #lorem(5)
+    ] <thm1>
 
-#proof[
-  For any $n > 2$, consider $
-    n! + 2, quad n! + 3, quad ..., quad n! + n 
-  $
-]
+    #proof[ It's used to prove @thm1. ]
+    
+    #definition("123")[
+      #lorem(5)
+      #remark[#lorem(5)]
+    ]
+    
+    #lemma[
+      If ..., then
+      + #lorem(5).
+      + #lorem(5).
+    ]
+
+    #example[ #lorem(5) ]
+
+    #proof[ #lorem(5) ]
+
+    #exercise[
+      #lorem(5)\ 
+      #solution[ #lorem(5) ]
+    ]
+
+    #corollary[ #lorem(5) ]
+  ],
+)
+
+
+
 
 
 == 代码块
 
 // 代码块支持语法高亮。引用时需要加上 `lst:` @lst:code
 
-````typst
-```py
-def add(x, y):
-  return x + y
-```
-````
-
-
-
-
-// #figure(
-//   ```py
-//   def add(x, y):
-//     return x + y
-//   ```,
-//   caption:[代码块],
-// ) <code>
-
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 60pt)[
+    ````typst
+    ```py
+    def add(x, y):
+      return x + y
+    ```
+    ````
+  ],
+  rect(width: 100%, height: 60pt)[
+    ````typst
+    ```py
+    def add(x, y):
+      return x + y
+    ```
+    ````
+  ],
+)
 
 // 手动分页
 // #if twoside {
 //   pagebreak() + " "
 // }
 
+= 注意点
+== 个人总结的几条原则
++ 减少四级或更深标题的使用，只有当三级标题下的内容有明显分类，各自有小点时才使用四级标题；否则使用的无序列表形式
++ 减少有序列表使用，四级标题下，且仍有标序号的必要时（对数量或次序重视），才使用有序列表。或者起到充当五级标题的作用，以符合第一条原则。
++ 不使用有序、无序列表的互相嵌套
+// 示例：
+
+// *资本的原始积累*：
+// - _概念_：资本原始积累就是以暴力手段使生产者与生产资料相分离，资本迅速集中于少数人手中，资本主义得以迅速发展的历史过程。
+// - _途径_：一是用暴力手段剥夺农民土地； 二是用暴力手段掠夺货币财富，即利用国家政权的力量进行残酷的殖民掠夺。
+
+
 // 附录
 #show: appendix
 
 = 附录
 
-== 子标题
+== 导入的第三方包
++ outrageous:0.4.0 (https://typst.app/universe/package/outrageous) 显示目录
++ cuti:0.3.0 中文字体加粗
++ ctheorem  定理环境
 
-附录内容
+\ \ \ \ 
+其他附录内容

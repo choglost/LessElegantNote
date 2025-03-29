@@ -1,3 +1,5 @@
+// 标题相关的工具函数
+
 // 展示一个标题
 #let heading-display(it) = {
   if it != none {

@@ -1,3 +1,5 @@
+// 配置字体
+
 #let 字号 = (
   初号: 42pt,
   小初: 36pt,
@@ -20,23 +22,21 @@
 
 #let 字体 = (
   // 宋体，属于「有衬线字体」，一般可以等同于英文中的 Serif Font
-  宋体: ("Times New Roman", "SimSun"),
+  // FZShuSong-Z01S
+  宋体: ("Times New Roman","SimSun"),
+
   // 黑体，属于「无衬线字体」，一般可以等同于英文中的 Sans Serif Font
-  黑体: ("Arial", "SimHei" ),
+  // FZHei-B01S, SimHei
+  黑体: ("Calibri","SimHei"),
+
   // 等宽字体，用于代码块环境，一般可以等同于英文中的 Monospaced Font
-  等宽: ("Consolas", "FangSong"),
-  楷体: ("Times New Roman", "KaiTi"),
-  仿宋: ("Times New Roman", "FangSong"),
+  等宽: ("Consolas", "Microsoft YaHei"),
+
+  // 楷体，用于注解
+  楷体: ("Times New Roman","KaiTi"),// FZKai-Z03S
+  仿宋: ("Times New Roman","FZFangSong-Z02S"),
+
+  // 数学公式字体
+  数学: ("New Computer Modern Math","FZFangSong-Z02S")
 )
 
-//「新罗马体（有衬线英文字体）」、「思源宋体（简体）」、「思源宋体」、「宋体（Windows）」、「宋体（MacOS）」
-// "Times New Roman", "Source Han Serif SC", "Source Han Serif", "Noto Serif CJK SC", "SimSun", "Songti SC", "STSongti"
-
-// 「Arial（无衬线英文字体）」、「思源黑体（简体）」、「思源黑体」、「黑体（Windows）」、「黑体（MacOS）」
-// "Arial", "Source Han Sans SC", "Source Han Sans", "Noto Sans CJK SC", "SimHei", "Heiti SC", "STHeiti"
-
-// 「Courier New（Windows 等宽英文字体）」、「思源等宽黑体（简体）」、「思源等宽黑体」、「黑体（Windows）」、「黑体（MacOS）」
-
-//  "FangSong SC", "STFangSong", "FZFangSong-Z02S", "Noto Serif CJK SC"
-
-// "Kaiti SC", "STKaiti", "FZKai-Z03S", "Noto Serif CJK SC"

@@ -1,109 +1,90 @@
-#import "@preview/i-figured:0.2.4"
-#import "@preview/codly:0.2.1": *
+// 正文设置。在这里修改正文的字体、字号等。
 
+// 第三方包
+#import "@preview/i-figured:0.2.4"
+#import "@preview/codly:1.3.0": *
+#import "@preview/codly-languages:0.1.1": *
+// 放在其他文件中的小工具
 #import "../utils/style.typ": 字号, 字体
 #import "../utils/custom-numbering.typ": custom-numbering
 #import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
 #import "../utils/indent.typ": fake-par
 #import "../utils/unpairs.typ": unpairs
 
-
 #let mainmatter(
   // documentclass 传入参数
   twoside: false,
-  info :(:),
+  info: (:),
   // 其他参数
-  theme-color: rgb("3C71BF"),// 主题色，包括标题、strong类型强调的颜色
+  theme-color: rgb("3C71BF"), // 主题色，包括标题、strong类型强调的颜色
   // 正文相关
-  text-font: 字体.宋体,
-  text-size: 字号.五号,
-  par-leading: 0.7em,// 行距
-  par-spacing: 0.7em,// 段间距
-  // 特殊类型文本
-  strong-font: 字体.黑体,
-
+  text-font: 字体.宋体, // 正文字体
+  text-size: 字号.五号, // 正文字号
+  par-leading: 7pt, // 行距
+  par-spacing: 7pt, // 段间距
+  strong-font: 字体.宋体, // strong类型字体
   // 标题相关
-  heading-font: (字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体),// 标题字体
-  heading-size: (字号.三号, 字号.四号, 字号.五号, 字号.五号),
-  heading-weight: ("regular", "regular", "regular", ),
-  heading-above: (2em, 1.5em, 1em, 0.7em),
-  heading-below: (2em, 1.5em, 1em, 0.7em),  // 标题下方
-  heading-pagebreak: (true, false), // 标题换页
-  heading-align: (center, auto),  // 标题居中
+  numbering-style: "literature", // 标题类型
+  heading-font: (字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体), // 标题字体，数组内分别是各级标题
+  heading-size: (字号.三号, 字号.四号, 字号.小四, 字号.五号, 字号.五号), // 标题字号
+  heading-weight: ("bold", "regular", "regular", "regular", "regular"),// 标题是否加粗
+  heading-above: (20pt, 12pt, 9pt, 8pt, 7pt), // 标题上方间距
+  heading-below: (20pt, 12pt, 9pt, 8pt, 7pt), // 标题下方间距
+  heading-pagebreak: (true, false), // 标题是否换页
+  heading-align: (center,auto), // 标题居中
   heading-fill: (black,), // 标题颜色
-  // 页眉相关
-  header-render: auto,
-  display-header: false,
-  skip-on-first-level: true,
-  stroke-width: 0.5pt,
-  reset-footnote: false,
-
   ..args,
   it,
 ) = {
-  // 默认参数
-  info = (
-    numbering-style: "literature",
-  ) + info
   // 处理 heading- 开头的其他参数
   heading-fill = (theme-color,)
-  let heading-text-args-lists = args.named().pairs().filter(pair => pair.at(0).starts-with("heading-")).map(pair => (
-    pair.at(0).slice("heading-".len()),
-    pair.at(1),
-  ))
+  let heading-text-args-lists = args
+    .named()
+    .pairs()
+    .filter(pair => pair.at(0).starts-with("heading-"))
+    .map(pair => (
+      pair.at(0).slice("heading-".len()),
+      pair.at(1),
+    ))
 
   // 辅助函数
   let array-at(arr, pos) = {
     arr.at(calc.min(pos, arr.len()) - 1)
   }
 
-  // 文本和段落样式
+  // 1. 设置文本和段落样式
+  // 1.1 普通文本
   set text(font: text-font, size: text-size)
 
-  set par(leading: par-leading, justify: true, first-line-indent: 2em)
-  show par: set block(spacing: par-spacing)
+  set par(leading: par-leading, justify: true, first-line-indent: 2em, spacing: par-spacing)
 
-  // 特殊类型文本
+  // 1.2 特殊类型文本
   // 代码块
-
   show: codly-init.with()
-  codly(display-name: false)
+  codly(display-name: true) // 是否在代码块右上角显示语言名
 
-  // set block(width: 60%)
-  show raw: it => {
-    set text(font: 字体.等宽)
-    
-    it
-  }
-
+  // 特殊格式：加粗strong、强调emph、原生raw
   show emph: it => {
     set text(weight: "bold")
-    // show: show-cn-fakebold // 伪加粗
     it
   }
 
   show strong: it => {
-    set text(font: strong-font, theme-color)
+    set text(theme-color) // font: strong-font
     it
   }
 
-  // 设置脚注
-  show footnote.entry: set text(font: 字体.宋体, size: 字号.五号)
-  // 设置 equation 的编号和假段落首行缩进
-  show math.equation.where(block: true): i-figured.show-equation
-  // 设置 figure 的编号，表格表头置顶 + 不用冒号用空格分割 + 样式
-  show heading: i-figured.reset-counters
-  show figure: i-figured.show-figure
-  show figure.where(kind: table): set figure.caption(position: top)
-  set figure.caption(separator: "  ")
-  show figure.caption: set text(font: 字体.宋体, size: 字号.小五)
+  show raw: it => {
+    set text(font: 字体.等宽) // size: 字号.五号
+    it
+  }
 
-  // 处理标题
-  // 设置标题的 numbering
+  // 2. 标题
+  // 设置标题的编号numbering
   set heading(numbering: custom-numbering.with(style: info.numbering-style))
-  // counter(heading).update(0)
+
+  // 设置标题的字体、字号、间距
   show heading: it => {
-    // 设置字体字号
     set text(
       font: array-at(heading-font, it.level),
       size: array-at(heading-size, it.level),
@@ -113,7 +94,7 @@
     )
     set block(above: array-at(heading-above, it.level), below: array-at(heading-below, it.level))
     it
-    fake-par //加入假段落模拟首行缩进
+    fake-par // 加入假段落，以实现中文的首行缩进
   }
 
   // 标题居中与自动换页
@@ -126,101 +107,76 @@
     }
     if (array-at(heading-align, it.level) != auto) {
       set align(array-at(heading-align, it.level))
-      it
-    } else {
-      it
     }
+    it
   }
 
-  // 处理列表
-  // 无序列表 list
-  set list(indent: 1.3em, body-indent: 0.4em) //marker: ("•","·")
+  // 3. 列表
+  // 3.1 无序列表 list
+  // set par(first-line-indent: 0em)
+  set list(indent: 2.3em, body-indent: 0.4em) //marker: ("‣","•","-")
   show list: it => {
-    set block(above: 0.7em, below: 0.7em)
+    set block(above: par-leading, below: par-leading)
     it
     fake-par
   }
-  // 有序列表 enum
-  set enum(indent: 0.8em, body-indent: 0.4em, numbering: "1.")
+  // 3.2 有序列表 enum
+  set enum(indent: 2em, body-indent: 0.3em, numbering: "1①i.")
   show enum: it => {
-    set block(above: 0.7em, below: 0.7em)
+    set block(above: par-leading, below: par-leading)
     it
     fake-par
   }
-  // 术语列表 terms
-  set terms(indent: 0em, hanging-indent: 2.65em)
+  // 3.3 术语列表 terms
+  set terms(indent: 2em, hanging-indent: 2.2em, separator: " ")
   show terms: it => {
-    set block(above: 0.7em, below: 0.7em)
+    set block(above: par-leading, below: par-leading)
     it
     fake-par
   }
 
-  // 表格
+  // 4. 其他
+  // 4.1 图表 figure
+  show figure: it => {
+    set block(breakable: true) // 设置图表的跨页展示
+    it
+    fake-par
+  }
+  show heading: i-figured.reset-counters
+  show figure: i-figured.show-figure // figure 的编号
+
+  show figure.where(kind: table): set figure.caption(position: top) // 表格表头置顶
+  set figure.caption(separator: "  ") // 表头不用冒号用空格分割
+  show figure.caption: set text(font: 字体.宋体, size: 字号.小五) // 表头样式
+
+  // 4.2 表格 table
   set table(align: center + horizon)
+  
+  // 4.3 数学公式
+  // 设置 equation 的编号和假段落首行缩进
+  // show math.equation.where(block: true): i-figured.show-equation
+  set math.equation(numbering: none)
+  show math.equation: it => {
+    set text(font: 字体.数学)
+    h(0.2em)
+    it
+    h(0.1em)
+  }
 
-  // 处理页眉
-  set page(..(
-    if display-header {
-      (
-        header: {
-          // 重置 footnote 计数器
-          if reset-footnote {
-            counter(footnote).update(0)
-          }
-          locate(loc => {
-            // 5.1 获取当前页面的一级标题
-            let cur-heading = current-heading(level: 1, loc)
-            // 5.2 如果当前页面没有一级标题，则渲染页眉
-            if not skip-on-first-level or cur-heading == none {
-              if header-render == auto {
-                // 一级标题和二级标题
-                let first-level-heading = if not twoside or calc.rem(loc.page(), 2) == 0 {
-                  heading-display(active-heading(level: 1, loc))
-                } else {
-                  ""
-                }
-                let second-level-heading = if not twoside or calc.rem(loc.page(), 2) == 2 {
-                  heading-display(active-heading(level: 2, prev: false, loc))
-                } else {
-                  ""
-                }
-                set text(font: 字体.楷体, size: 字号.五号)
-                stack(
-                  first-level-heading + h(1fr) + second-level-heading,
-                  v(0.25em),
-                  if first-level-heading != "" or second-level-heading != "" {
-                    line(length: 100%, stroke: stroke-width + black)
-                  },
-                )
-              } else {
-                header-render(loc)
-              }
-              v(0em) // header-vspace
-            }
-          })
-        },
-      )
-    } else {
-      (
-        header: {
-          // 重置 footnote 计数器
-          if reset-footnote {
-            counter(footnote).update(0)
-          }
-        },
-      )
-    }
-  ))
+  // 4.4 页脚
+  // 设置脚注
+  show footnote.entry: set text(font: 字体.宋体, size: 字号.五号)
 
-  // 处理页脚的页码
-  set page(footer: [
-    #align(center)[
+  // 设置页码
+  set page(
+    footer: context [
+      #set align(center)
+      #set text(font: 字体.宋体)
       #text(counter(page).display("1"))
-    ]
-  ])
+    ],
+  )
   counter(page).update(1)
-
-
 
   it
 }
+
