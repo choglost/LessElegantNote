@@ -1,25 +1,26 @@
 # LessElegantNote
 
-## 项目简介
-一个Typst笔记模板。
+## 项目特色
+这是一个Typst笔记模板。有以下特色：
++ 中文友好，内置多种合适的中文字体，也支持中文加粗。
++ 页面风格极简而不失优雅，参考了[ElegantBook: 优美的 LaTeX 书籍模板](https://github.com/ElegantLaTeX/ElegantBook)的风格。
++ 数学定理环境支持。导入第三方包，优美地呈现数学定理、证明、引理等。
 
-## 学习资源
-* [Typst官方文档](https://typst.app/docs)
+项目效果预览：
+
+![封面](/example/images/cover-example.jpg)
 
 ## 使用指南
 1. 下载本项目并解压。
-2. 在vscode中打开项目文件夹。
-3. 安装vscode插件Tinymist Typst。
-4. 参考/example/less-elegant-note.pdf，创建你自己的笔记。
+2. 在vscode中打开项目文件夹，安装插件Tinymist Typst。
+3. 参考/example/less-elegant-note.typ，创建你自己的笔记。
 
-## 致谢
-- 本项目是在[南京大学学位论文 Typst 模板 modern-nju-thesis ](https://github.com/nju-lug/modern-nju-thesis)的基础上修改而成的。
-- 灵感来源于[ElegantBook: 优美的 LaTeX 书籍模板](https://github.com/ElegantLaTeX/ElegantBook)。
+## 其他
+### Typst学习资源
+* [Typst官方文档](https://typst.app/docs)
+### 说明
+本项目是在[南京大学学位论文 Typst 模板 modern-nju-thesis ](https://github.com/nju-lug/modern-nju-thesis)的基础上修改而成的。感谢原作者工作。
 
-感谢他们的工作。
-
-## 更新计划
-1. 完善参考文档。
-2. ~~数学环境支持，如定理、证明、例题。~~
-3. 格式的自定义，如主题颜色自定义、提供更多风格的封面、标题格式的自定义。
-4. 增加其他页面，如前言、参考文献。
+### 待完善的地方
+1. 参考文档完善
+2. 其他功能支持，如前言、参考文献。
