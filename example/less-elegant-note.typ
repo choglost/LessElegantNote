@@ -1,6 +1,6 @@
 // 模板示例。包含模板介绍和一些Typst用法。
 
-#import "/less-elegant-note/lib.typ": *
+#import "../lib.typ": *
 
 #let (
   // 布局
