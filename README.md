@@ -1,6 +1,6 @@
 # LessElegantNote
 
-## 项目特色 FeaTures
+## 项目特色 Features
 这是一个Typst笔记模板，是在[南京大学学位论文 Typst 模板 modern-nju-thesis ](https://github.com/nju-lug/modern-nju-thesis)的基础上修改而成的。感谢原作者的工作。
 
 本项目有以下特色：
@@ -19,12 +19,12 @@
 2. 在vscode中打开项目文件夹，安装插件Tinymist Typst。
 3. 参考 [less-elegant-note.typ](https://github.com/choglost/LessElegantNote/blob/main/example/less-elegant-note.typ)，创建你自己的笔记。
 
-## 学习文档和社区 TypstUniverse
+## 学习文档和社区
 * [Typst官方文档](https://typst.app/docs)
 * Typst非官方交流QQ群：793548390
 * [Typst中文教程（小蓝书）](https://typst-doc-cn.github.io/tutorial/introduction.html)
 
-## 更新目标（不定期）
+## 更新目标
 1. 完善参考文档
 2. 其他功能支持，如前言、参考文献。
 3. 上传我自己的笔记成果
