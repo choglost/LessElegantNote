@@ -31,7 +31,7 @@
   heading-above: (20pt, 12pt, 9pt, 8pt, 7pt), // 标题上方间距
   heading-below: (20pt, 12pt, 9pt, 8pt, 7pt), // 标题下方间距
   heading-pagebreak: (true, false), // 标题是否换页
-  heading-align: (center,auto), // 标题居中
+  heading-align: (center,auto,), // 标题居中
   heading-fill: (black,), // 标题颜色
   ..args,
   it,
@@ -107,8 +107,13 @@
     }
     if (array-at(heading-align, it.level) != auto) {
       set align(array-at(heading-align, it.level))
+      it
     }
-    it
+    else{
+      it
+    }
+      
+    
   }
 
   // 3. 列表
