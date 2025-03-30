@@ -17,7 +17,7 @@
 ## 使用指南 Mannual
 1. 下载本项目并解压。
 2. 在vscode中打开项目文件夹，安装插件Tinymist Typst。
-3. 参考 [使用手册less-elegant-note.pdf](https://github.com/choglost/LessElegantNote/blob/main/example/example/less-elegant-note.typ)，创建你自己的笔记。
+3. 参考 [less-elegant-note.typ](https://github.com/choglost/LessElegantNote/blob/main/example/less-elegant-note.typ)，创建你自己的笔记。
 
 ## 学习文档和社区 TypstUniverse
 * [Typst官方文档](https://typst.app/docs)
