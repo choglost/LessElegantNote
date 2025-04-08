@@ -16,8 +16,8 @@
   info: (
     title: ("LessElegantNote：Typst笔记模版"), // 笔记文档的名字
     author: "choglost", // 作者
-    date: datetime.today(), // 时间，或者写成 (month:1,day:1,year:2000)
-    cover-image: "../example/images/cover.jpg", // 封面图片路径，注意是相对于pages/elgeant-cover.typ的路径
+    date: datetime.today(), // 时间
+    cover-image: "../example/images/cover.jpg", // 封面图片
     numbering-style:"maths" // "maths"：数学或论文风格的标题编号 1.1.1  ; "literature"：文学风格的标题编号 第一章/节
   ),
 )
@@ -36,11 +36,26 @@
 #heading(numbering:none)[序言] // 序言标题不必编号
 
 == 模版简介
-这是一个Typst笔记模板。页面美观，易于自定义。
 
-重要说明：由于社区很活跃，本项目可能由于 Typst 或者第三方包的更新而出现报错，您可以自行更新相关包到最新版本，或者避免使用相关包。
+LessElegantNote是一个Typst笔记模板。它是在_南京大学学位论文Typst模板 modern-nju-thesis_ (#link("https://github.com/nju-lug/modern-nju-thesis"))的基础上二次开发而成的。感谢原作者的工作。
+
+本模板有以下特色：
++ 中文友好，精心选择了多种合适的中文字体。支持中文加粗、首行两格缩进等基础需求。
++ 极简而不失优雅，参考了_ElegantBook: 优美的LaTeX书籍模板_(#link("https://github.com/ElegantLaTeX/ElegantBook"))的风格。
++ 高度可自定义。代码结构清晰，字体字号、页面布局的参数可轻松修改。
++ 适用范围广。通过引入第三方包，支持数学定理环境、思维导图绘制等，可用于多门学科。
+
+== Q&A
+- 出现报错、无法使用
+  - 本项目可能由于 Typst 或者第三方包的更新而出现报错，您可以更新相关包的版本号。如果无法解决，可以在Github提出issue。
+
+== Typst学习资源
++ Typst中文社区导航：#link("https://typst-doc-cn.github.io/guide/")
++ The Raindrop-Blue Book (Typst中文教程): #link("https://typst-doc-cn.github.io/tutorial/")
+
 
 = 模版使用
+
 == 让我们开始！
 + 下载模板
   + 打开本项目的Github页面（https://github.com/choglost/LessElegantNote）。
@@ -49,8 +64,9 @@
   + 在VSCode中打开整个文件夹，并安装_Tinymist Typst_插件。
   + 打开example/less-elegant-note.typ，按F1使用插件的`Typst Preview`功能，检查能否预览。
 + 使用模版
-  + 新建一个文件夹并在VSCode中打开（可取名`mynotes`），把本项目复制到`mynotes`文件夹下，再在`mynotes`下创建一个 `数学.typ` 文件。
-  + 参照本文档`less-elegant-note.typ`，编写你自己的笔记。比如可在`数学.typ`内这样写：
+  + 新建一个文件夹并在VSCode中打开（可取名`mynotes`），把本项目复制到`mynotes`文件夹下，再在`mynotes`下创建一个 `数学笔记.typ` 文件。
+  + 参照本文档`less-elegant-note.typ`，编写你自己的笔记。比如可在`数学笔记.typ`内这样写：
+
 ```typst
 #import "/less-elegant-note/lib.typ": *
 
@@ -71,19 +87,59 @@
 
 #show: mainmatter
 
-= 高数
-今天开始学习高数！
+= 一级标题
 
+== 二级标题
+
+正文内容
 
 ```
+
 == 模板自定义设置
 === 封面自定义
-=== 文章格式设置
-==== 正文格式
-==== 标题格式
-==== 列表格式
+以上面代码为例，在你编写的`数学笔记.typ`中，通过如下参数控制封面内容：
 
-= Typst基本语法
+```typst
+title: ("我的数学笔记"), // 这是封面标题，可在标题中插入“\n”以换行
+author: "张三",         // 这是作者名
+date: datetime.today(), // 日期，默认预览时的时间，或者写成 “(month:1,day:1,year:2000)”形式的固定日期
+cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.typ的路径
+```
+
+=== 文章格式自定义
+==== 正文
+在`less-elegant-note\layouts\mainmatter.typ`中更改正文格式。
+
+==== 标题编号
+在`less-elegant-note\utils\custom-heading.typ`中自定义标题编号，已预设三种编号风格。通过`numbering-style`选择。
+
+
+
+= Typst基础
+
+== 文本
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 80pt)[
+    ```typst
+    *strong类型*
+
+    _bold类型_
+
+    `raw`类型
+    ```
+  ],
+  rect(width: 100%, height: 80pt)[
+    *strong类型*
+
+    _bold类型_
+
+    `raw类型`
+  ],
+)
 
 == 列表
 
@@ -108,7 +164,6 @@
       - 无序子列表项二
   ],
 )
-
 
 === 有序列表
 #grid(
@@ -300,7 +355,32 @@
   ],
 )
 
-=== 矩阵和向量
+=== 矩阵/行列式
+
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 140pt)[
+    ```typst
+    $ mat(delim:"|",
+      a_11, a_12, a_13;
+      a_21, a_22, a_23;
+      a_31, a_32, a_33;
+    ) $
+    ```
+  ],
+  rect(width: 100%, height: 140pt)[
+    $ mat(delim:"|",
+      a_11, a_12, a_13;
+      a_21, a_22, a_23;
+      a_31, a_32, a_33;
+    ) $
+  ],
+)
+
+
 
 === 常用符号
 #grid(
@@ -325,7 +405,6 @@
 == 定理环境
 #show: thmrules
 
-
 #grid(
   rows: 2,
   columns: 2,
@@ -333,13 +412,13 @@
   [代码：], [效果：],
   rect(width: 100%, height: 400pt)[
     ```typst
-    #theorem(number: "1.1",title: "title")[
+    #theorem("title")[
       #lorem(5)
     ] <thm1>
 
     #proof[ It's used to prove @thm1. ]
     
-    #definition[
+    #definition("123")[
       #lorem(5)
       #remark[#lorem(5)]
     ]
@@ -393,10 +472,6 @@
   ],
 )
 
-
-
-
-
 == 代码块
 
 // 代码块支持语法高亮。引用时需要加上 `lst:` @lst:code
@@ -415,25 +490,25 @@
     ````
   ],
   rect(width: 100%, height: 60pt)[
-    ````typst
     ```py
     def add(x, y):
       return x + y
     ```
-    ````
   ],
 )
+
+
+
 
 // 手动分页
 // #if twoside {
 //   pagebreak() + " "
 // }
 
-= 注意点
-== 个人总结的几条原则
-+ 减少四级或更深标题的使用，只有当三级标题下的内容有明显分类，各自有小点时才使用四级标题；否则使用的无序列表形式
-+ 减少有序列表使用，四级标题下，且仍有标序号的必要时（对数量或次序重视），才使用有序列表。或者起到充当五级标题的作用，以符合第一条原则。
-+ 不使用有序、无序列表的互相嵌套
+// == 个人总结的几条原则
+// + 减少四级或更深标题的使用，只有当三级标题下的内容有明显分类，各自有小点时才使用四级标题；否则使用的无序列表形式
+// + 减少有序列表使用，四级标题下，且仍有标序号的必要时（对数量或次序重视），才使用有序列表。或者起到充当五级标题的作用，以符合第一条原则。
+// + 不使用有序、无序列表的互相嵌套
 // 示例：
 
 // *资本的原始积累*：
@@ -446,10 +521,13 @@
 
 = 附录
 
-== 导入的第三方包
+== 第三方包
 + outrageous:0.4.0 (https://typst.app/universe/package/outrageous) 显示目录
 + cuti:0.3.0 中文字体加粗
-+ ctheorem  定理环境
++ ctheorem:1.1.3  定理环境
++ codly:1.3.0 代码块
++ codly-languages:0.1.1 代码语言
++ i-figured:0.2.4
 
 \ \ \ \ 
 其他附录内容
