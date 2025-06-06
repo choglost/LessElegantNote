@@ -10,9 +10,9 @@
 
 **项目效果预览**：
 
-<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/cover-example.png" height="200px">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/outline-example.png" height="200px">
+<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/cover-example.png" height="400px">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/outline-example.png" height="400px">
 
-<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/chinese-example.png" height="200px">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/maths-example.png" height="200px">
+<img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/chinese-example.png" height="400px">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/maths-example.png" height="400px">
 
 ## 使用指南 Mannual
 1. 下载本项目并解压。
