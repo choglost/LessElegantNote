@@ -29,14 +29,13 @@
   // FZHei-B01S, SimHei
   黑体: ("Calibri","SimHei"),
 
-  // 等宽字体，用于代码块环境，一般可以等同于英文中的 Monospaced Font
-  等宽: ("Consolas", "Microsoft YaHei"),
+  // 等宽字体，用于raw和代码块环境，一般可以等同于英文中的 Monospaced Font
+  等宽: ("Consolas", "SimSun"),
 
   // 楷体，用于注解
   楷体: ("Times New Roman","KaiTi"),// FZKai-Z03S
-  仿宋: ("Times New Roman","FZFangSong-Z02S"),
+  仿宋: ("Times New Roman","KaiTi"),//FZFangSong-Z02S
 
   // 数学公式字体
-  数学: ("New Computer Modern Math","FZFangSong-Z02S")
+  数学: ("New Computer Modern Math","KaiTi")//FZFangSong-Z02S
 )
-

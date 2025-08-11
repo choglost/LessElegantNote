@@ -30,7 +30,6 @@
 
 #fonts-display-page() // 显示字体测试页
 
-
 #show: mainmatter // 显示正文部分
 
 #heading(numbering:none)[序言] // 序言标题不必编号
@@ -67,7 +66,7 @@ LessElegantNote是一个Typst笔记模板。它是在_南京大学学位论文Ty
   + 新建一个文件夹并在VSCode中打开（可取名`mynotes`），把本项目复制到`mynotes`文件夹下，再在`mynotes`下创建一个 `数学笔记.typ` 文件。
   + 参照本文档`less-elegant-note.typ`，编写你自己的笔记。比如可在`数学笔记.typ`内这样写：
 
-```typst
+```typ
 #import "/less-elegant-note/lib.typ": *
 
 #let (
@@ -99,7 +98,7 @@ LessElegantNote是一个Typst笔记模板。它是在_南京大学学位论文Ty
 === 封面自定义
 以上面代码为例，在你编写的`数学笔记.typ`中，通过如下参数控制封面内容：
 
-```typst
+```typ
 title: ("我的数学笔记"), // 这是封面标题，可在标题中插入“\n”以换行
 author: "张三",         // 这是作者名
 date: datetime.today(), // 日期，默认预览时的时间，或者写成 “(month:1,day:1,year:2000)”形式的固定日期
@@ -110,6 +109,17 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
 ==== 正文
 在`less-elegant-note\layouts\mainmatter.typ`中更改正文格式。
 
+==== 字体
+在`less-elegant-note\utils\style.typ`中更改字体。（如果字体测试页显示出错，需要在你的电脑中安装相关字体。或者在命令行中输入`typst fonts`，查看可以使用的字体并自行替换。
+
+```typ
+宋体: ("Times New Roman","SimSun"),   // 用于普通文本
+黑体: ("Calibri","SimHei"),           // 用于加粗
+等宽: ("Consolas", "Microsoft YaHei"), // 用于代码块环境
+楷体: ("Times New Roman","KaiTi"),    // 用于注解
+数学: ("New Computer Modern Math","FZFangSong-Z02S"), // 用于数学公式
+仿宋: ("Times New Roman","FZFangSong-Z02S")
+```
 ==== 标题编号
 在`less-elegant-note\utils\custom-heading.typ`中自定义标题编号，已预设三种编号风格。通过`numbering-style`选择。
 
@@ -124,7 +134,7 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
   gutter: 5pt,
   [代码：], [效果：],
   rect(width: 100%, height: 80pt)[
-    ```typst
+    ```typ
     *strong类型*
 
     _bold类型_
@@ -141,65 +151,66 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
   ],
 )
 
+
+== 代码块
+
+// 代码块支持语法高亮。引用时需要加上 `lst:` @lst:code
+
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 60pt)[
+    ````typ
+    ```py
+    def add(x, y):
+      return x + y
+    ```
+    ````
+  ],
+  rect(width: 100%, height: 60pt)[
+    ```py
+    def add(x, y):
+      return x + y
+    ```
+  ],
+)
+
 == 列表
 
-=== 无序列表
 #grid(
   rows: 2,
   columns: 2,
   gutter: 5pt,
   [代码：], [效果：],
-  rect(width: 100%, height: 70pt)[
-    ```typst
+  rect(width: 100%, height: 180pt)[
+    ```typ
     - 无序列表项一
     - 无序列表项二
       - 无序子列表项一
       - 无序子列表项二
-    ```
-  ],
-  rect(width: 100%, height: 70pt)[
-    - 无序列表项一
-    - 无序列表项二
-      - 无序子列表项一
-      - 无序子列表项二
-  ],
-)
 
-=== 有序列表
-#grid(
-  rows: 2,
-  columns: 2,
-  gutter: 5pt,
-  [代码：], [效果：],
-  rect(width: 100%, height: 70pt)[
-    ```typst
     + 有序列表项一
     + 有序列表项二
       + 有序子列表项一
       + 有序子列表项二
-    ```
-  ],
-  rect(width: 100%, height: 70pt)[
-    + 有序列表项一
-    + 有序列表项二
-      + 有序子列表项一
-      + 有序子列表项二
-  ],
-)
-
-=== 术语列表
-#grid(
-  rows: 2,
-  columns: 2,
-  gutter: 5pt,
-  [代码：], [效果：],
-  rect(width: 100%, height: 40pt)[
-    ```typst
+    
     / 术语一: 术语解释
     / 术语二: 术语解释
     ```
   ],
-  rect(width: 100%, height: 40pt)[
+  rect(width: 100%, height: 180pt)[
+    - 无序列表项一
+    - 无序列表项二
+      - 无序子列表项一
+      - 无序子列表项二
+    \ 
+    + 有序列表项一
+    + 有序列表项二
+      + 有序子列表项一
+      + 有序子列表项二
+    \ 
     / 术语一: 术语解释
     / 术语二: 术语解释
   ],
@@ -208,18 +219,17 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
 
 
 
-== 图表
+== 表格
 
 // 引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:cover。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。
 
-=== 常规表
 #grid(
   rows: 2,
   columns: 2,
   gutter: 5pt,
   [代码：], [效果：],
-  rect(width: 100%, height: 120pt)[
-    ```typst
+  rect(width: 100%, height: 250pt)[
+    ```typ
     #figure(
       table(
         columns: 4,
@@ -227,28 +237,6 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
         [y], [0.3s], [0.4s], [0.8s],
       ), caption: [常规表],
     )
-    ```
-  ],
-  rect(width: 100%, height: 120pt)[
-    #figure(
-      table(
-        columns: 4,
-        [t], [1], [2], [3],
-        [y], [0.3s], [0.4s], [0.8s],
-      ),
-      caption: [常规表],
-    )
-  ],
-)
-
-=== 三线表
-#grid(
-  rows: 2,
-  columns: 2,
-  gutter: 5pt,
-  [代码：], [效果：],
-  rect(width: 100%, height: 160pt)[
-    ```typst
     #figure(
       table(
         columns: 4,
@@ -262,7 +250,17 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
     )
     ```
   ],
-  rect(width: 100%, height: 160pt)[
+  rect(width: 100%, height: 250pt)[
+    \ \ \ 
+    #figure(
+      table(
+        columns: 4,
+        [t], [1], [2], [3],
+        [y], [0.3s], [0.4s], [0.8s],
+      ),
+      caption: [常规表],
+    )
+    \ \ \ 
     #figure(
       table(
         columns: 4,
@@ -278,14 +276,15 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
   ],
 )
 
-=== 图片
+
+== 图片
 #grid(
   rows: 2,
   columns: 2,
   gutter: 5pt,
   [代码：], [效果：],
   rect(width: 100%, height: 110pt)[
-    ```typst
+    ```typ
     #figure(
       image("images/cover.jpg", width: 40%),
       caption: [图片],
@@ -301,104 +300,170 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
 )
 
 == 数学公式
-=== 行内、行间公式
+=== 简单公式和字体
 #grid(
   rows: 2,
   columns: 2,
   gutter: 5pt,
   [代码：], [效果：],
-  rect(width: 100%, height: 70pt)[
-    ```typst
-    可以写行内公式 $x + y$，
-
-    也可以写行间公式
-    $ phi.alt := (1 + sqrt(5)) / 2 $
+  rect(width: 100%, height: 150pt)[
+    ```typ
+    // 行内公式 分式
+    $frac(2,x) = 1$，
+    // 行间公式
+    $ phi.alt = abs(x) $
+    // 根式
+    $ sqrt(x) +root(3,x) $ 
+    // 字体
+    $ upright(A) bold(A) italic(A) $
+    // 划去
+    $ cancel(x) $
     ```
   ],
-  rect(width: 100%, height: 70pt)[
-    可以写行内公式 $x + y$，
-
-    也可以写行间公式
-    $ phi.alt := (1 + sqrt(5)) / 2 $
+  rect(width: 100%, height: 150pt)[
+    $frac(2,x) = 1$，
+    $ phi.alt = abs(x) $
+    $ sqrt(x) +root(3,x) $ 
+    $ upright(A) bold(A) italic(A) $
+    $ cancel(x) $
   ],
 )
 
-=== 上下标
+=== 上下标、极限
 #grid(
   rows: 2,
   columns: 2,
   gutter: 5pt,
   [代码：], [效果：],
-  rect(width: 100%, height: 140pt)[
-    ```typst
-    $accent(a, `)$\
-    $lim_(n->infinity) x_n=a$\
-    $limits(lim)_(n->infinity) x_n=a$\
+  rect(width: 100%, height: 170pt)[
+    ```typ
+    // 简单上下标
+    $lim_(n->infinity) x_n=a$
+    $ limits(lim)_(n->infinity) x_n=a $
+    // 复杂上下标
+    $ accent(a, `) $
     $ attach(
-        Pi, t: alpha, b: beta,
-        tl: 1, tr: 2+3, bl: 4+5, br: 6,
-      ) $\
-    $ binom(n, k) $
-    ```
-  ],
-  rect(width: 100%, height: 140pt)[
-    $accent(a, `)$\
-    $lim_(n->infinity) x_n=a$\
-    $limits(lim)_(n->infinity) x_n=a$\
-    $
-      attach(
       Pi, t: alpha, b: beta,
       tl: 1, tr: 2+3, bl: 4+5, br: 6,
-    )
-    $\
-    $ binom(n, k) $
+    ) $
+    // 上、下划线
+    $ underline(1+2+3) $
+    $ overbrace(1+2+3) $
+    ```
+  ],
+  rect(width: 100%, height: 170pt)[
+    $lim_(n->infinity) x_n=a$
+    $ limits(lim)_(n->infinity) x_n=a $
+
+    $accent(a, `)$
+    $ attach(
+      Pi, t: alpha, b: beta,
+      tl: 1, tr: 2+3, bl: 4+5, br: 6,
+    ) $
+
+    $underline(1+2+3)$ $overbrace(1+2+3)$
+
   ],
 )
-
-=== 矩阵/行列式
+   
+=== 向量、矩阵、行列式
 
 #grid(
   rows: 2,
   columns: 2,
   gutter: 5pt,
   [代码：], [效果：],
-  rect(width: 100%, height: 140pt)[
-    ```typst
+  rect(width: 100%, height: 220pt)[
+    ```typ
+    // 向量
+    $ vec(a, b, c) dot vec(1, 2, 3) = a + 2b + 3c $
+    // 二项式
+    $ binom(n, k_1, k_2, k_3, ..., k_m) $
+    // 行列式
     $ mat(delim:"|",
       a_11, a_12, a_13;
       a_21, a_22, a_23;
       a_31, a_32, a_33;
     ) $
+    // 矩阵
+    $ mat(delim:"[",
+      a_11, a_12;
+      a_21, a_22;
+    ) $
     ```
   ],
-  rect(width: 100%, height: 140pt)[
+  rect(width: 100%, height: 220pt)[
+    $ vec(a, b, c) dot vec(1, 2, 3) = a + 2b + 3c $
+
+    $ binom(n, k_1, k_2, k_3, ..., k_m) $
+
     $ mat(delim:"|",
       a_11, a_12, a_13;
       a_21, a_22, a_23;
       a_31, a_32, a_33;
+    ) $
+
+    $ mat(delim:"[",
+      a_11, a_12;
+      a_21, a_22;
     ) $
   ],
 )
 
+=== 特殊等式
 
+#grid(
+  rows: 2,
+  columns: 2,
+  gutter: 5pt,
+  [代码：], [效果：],
+  rect(width: 100%, height: 150pt)[
+    ```typ
+    // 大括号分类
+    $ f(x, y) := cases(
+      1 "if" (x dot y)/2 <= 0,
+      2 "if" x "is even",
+      3 "if" x in NN,
+      4 "else",
+    ) $
+    // 拉伸
+    $ x stretch(harpoons.ltrb, size: #3em) y
+    stretch(\[, size: #150%) z $
+    ```
+  ],
+  rect(width: 100%, height: 150pt)[
+    $ f(x, y) := cases(
+      1 "if" (x dot y)/2 <= 0,
+      2 "if" x "is even",
+      3 "if" x in NN,
+      4 "else",
+    ) $
+    $ x stretch(harpoons.ltrb, size: #3em) y
+    stretch(\[, size: #150%) z $
+  ],
+)
+ 
 
-=== 常用符号
+=== 符号
 #grid(
   rows: 2,
   columns: 2,
   gutter: 5pt,
   [代码：], [效果：],
   rect(width: 100%, height: 140pt)[
-    ```typst
+    ```typ
     单箭头：$->,<-,<->$\
     双箭头：$=>,arrow.l.double,arrow.l.r.double$\
     等号：$=,>=,<=,!=,tilde.eq,tilde.equiv$
+    积分：$integral integral.double$
     ```
   ],
   rect(width: 100%, height: 140pt)[
     单箭头：$->,<-,<->$\
     双箭头：$=>,arrow.l.double,arrow.l.r.double$\
-    等号：$=,>=,<=,!=,tilde.eq,tilde.equiv$
+    等号：$=,>=,<=,!=,tilde.eq,tilde.equiv$\ 
+    积分：$integral,integral.double,integral.cont,integral.surf,integral.triple$\ 
+    集合：$union,inter,nothing,in,in.rev,in.not$
   ],
 )
 
@@ -411,7 +476,7 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
   gutter: 5pt,
   [代码：], [效果：],
   rect(width: 100%, height: 400pt)[
-    ```typst
+    ```typ
     #theorem("title")[
       #lorem(5)
     ] <thm1>
@@ -469,31 +534,6 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
     ]
 
     #corollary[ #lorem(5) ]
-  ],
-)
-
-== 代码块
-
-// 代码块支持语法高亮。引用时需要加上 `lst:` @lst:code
-
-#grid(
-  rows: 2,
-  columns: 2,
-  gutter: 5pt,
-  [代码：], [效果：],
-  rect(width: 100%, height: 60pt)[
-    ````typst
-    ```py
-    def add(x, y):
-      return x + y
-    ```
-    ````
-  ],
-  rect(width: 100%, height: 60pt)[
-    ```py
-    def add(x, y):
-      return x + y
-    ```
   ],
 )
 

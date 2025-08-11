@@ -5,18 +5,14 @@
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
 // 放在其他文件中的小工具
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/style.typ": 字体, 字号
 #import "../utils/custom-numbering.typ": custom-numbering
-#import "../utils/custom-heading.typ": heading-display, active-heading, current-heading
-#import "../utils/indent.typ": fake-par
-#import "../utils/unpairs.typ": unpairs
+#import "../utils/custom-heading.typ": active-heading, current-heading, heading-display
 
 #let mainmatter(
   // documentclass 传入参数
   twoside: false,
   info: (:),
-  // 其他参数
-  theme-color: rgb("3C71BF"), // 主题色，包括标题、strong类型强调的颜色
   // 正文相关
   text-font: 字体.宋体, // 正文字体
   text-size: 字号.五号, // 正文字号
@@ -24,20 +20,31 @@
   par-spacing: 7pt, // 段间距
   strong-font: 字体.宋体, // strong类型字体
   // 标题相关
-  numbering-style: "literature", // 标题类型
-  heading-font: (字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体), // 标题字体，数组内分别是各级标题
-  heading-size: (字号.三号, 字号.四号, 字号.小四, 字号.五号, 字号.五号), // 标题字号
-  heading-weight: ("bold", "regular", "regular", "regular", "regular"),// 标题是否加粗
-  heading-above: (20pt, 12pt, 9pt, 8pt, 7pt), // 标题上方间距
-  heading-below: (20pt, 12pt, 9pt, 8pt, 7pt), // 标题下方间距
+  // numbering-style: "literature", // 标题类型
+  heading-font: (字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体), // 标题字体，数组内分别是各级标题
+  heading-size: (字号.三号, 字号.四号, 字号.小四, 字号.五号, 字号.五号, 字号.五号), // 标题字号
+  heading-weight: ("bold", "regular", "regular", "regular", "regular", "regular"), // 标题是否加粗
+  heading-above: (20pt, 16pt, 14pt, 10pt, 7pt, 7pt), // 标题上方间距
+  heading-below: (20pt, 14pt, 10pt, 8pt, 7pt, 7pt), // 标题下方间距
   heading-pagebreak: (true, false), // 标题是否换页
-  heading-align: (center,auto,), // 标题居中
-  heading-fill: (black,), // 标题颜色
+  heading-align: (center, center, auto), // 标题居中
+  heading-fill: (rgb("#004578"), rgb("#004578"), rgb("#005a9e"), rgb("#005a9e")), // 标题颜色
+  // 其他参数
+  strong-color: rgb("#106ebe"), // strong类型强调的颜色
   ..args,
   it,
 ) = {
+  // 0.  默认参数
+  info = (
+    (
+      numbering-style: "literature", // 标题类型
+    )
+      + info
+  )
+
+  let color-blue = (rgb("#004578"), rgb("#005a9e"), rgb("#106ebe"), rgb("#0078d4"), rgb("#2b88d8"))
+
   // 处理 heading- 开头的其他参数
-  heading-fill = (theme-color,)
   let heading-text-args-lists = args
     .named()
     .pairs()
@@ -52,11 +59,19 @@
     arr.at(calc.min(pos, arr.len()) - 1)
   }
 
+  let unpairs(pairs) = {
+    let dict = (:)
+    for pair in pairs {
+      dict.insert(..pair)
+    }
+    dict
+  }
+
   // 1. 设置文本和段落样式
   // 1.1 普通文本
   set text(font: text-font, size: text-size)
 
-  set par(leading: par-leading, justify: true, first-line-indent: 2em, spacing: par-spacing)
+  set par(leading: par-leading, justify: true, first-line-indent: (amount: 2em,all: true), spacing: par-spacing)
 
   // 1.2 特殊类型文本
   // 代码块
@@ -70,7 +85,7 @@
   }
 
   show strong: it => {
-    set text(theme-color) // font: strong-font
+    set text(strong-color) // font: strong-font
     it
   }
 
@@ -94,7 +109,6 @@
     )
     set block(above: array-at(heading-above, it.level), below: array-at(heading-below, it.level))
     it
-    fake-par // 加入假段落，以实现中文的首行缩进
   }
 
   // 标题居中与自动换页
@@ -108,12 +122,9 @@
     if (array-at(heading-align, it.level) != auto) {
       set align(array-at(heading-align, it.level))
       it
-    }
-    else{
+    } else {
       it
     }
-      
-    
   }
 
   // 3. 列表
@@ -123,21 +134,18 @@
   show list: it => {
     set block(above: par-leading, below: par-leading)
     it
-    fake-par
   }
   // 3.2 有序列表 enum
-  set enum(indent: 2em, body-indent: 0.3em, numbering: "1①i.")
+  set enum(indent: 2em, body-indent: 0.25em, numbering: "1 ① i.")
   show enum: it => {
     set block(above: par-leading, below: par-leading)
     it
-    fake-par
   }
   // 3.3 术语列表 terms
   set terms(indent: 2em, hanging-indent: 2.2em, separator: " ")
   show terms: it => {
     set block(above: par-leading, below: par-leading)
     it
-    fake-par
   }
 
   // 4. 其他
@@ -145,7 +153,6 @@
   show figure: it => {
     set block(breakable: true) // 设置图表的跨页展示
     it
-    fake-par
   }
   show heading: i-figured.reset-counters
   show figure: i-figured.show-figure // figure 的编号
@@ -156,7 +163,7 @@
 
   // 4.2 表格 table
   set table(align: center + horizon)
-  
+
   // 4.3 数学公式
   // 设置 equation 的编号和假段落首行缩进
   // show math.equation.where(block: true): i-figured.show-equation
@@ -173,15 +180,12 @@
   show footnote.entry: set text(font: 字体.宋体, size: 字号.五号)
 
   // 设置页码
-  set page(
-    footer: context [
-      #set align(center)
-      #set text(font: 字体.宋体)
-      #text(counter(page).display("1"))
-    ],
-  )
+  set page(footer: context [
+    #set align(center)
+    #set text(font: 字体.宋体)
+    #text(counter(page).display("1"))
+  ])
   counter(page).update(1)
 
   it
 }
-

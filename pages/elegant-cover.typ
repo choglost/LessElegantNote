@@ -1,3 +1,5 @@
+// 封面页
+
 #import "../utils/style.typ": 字号, 字体
 
 #let elegant-cover(

@@ -1,6 +1,7 @@
+// 字体显示测试页
+
 #import "../utils/style.typ": 字号, 字体
 
-// 字体显示测试页
 #let fonts-display-page(
   twoside: false,
   size: 字号.小四,

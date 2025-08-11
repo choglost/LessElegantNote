@@ -1,4 +1,6 @@
 // 前言
+// TODO：目前未使用。建议用无编号的一级标题实现前言页。
+
 #let preface(
   // documentclass 传入的参数
   twoside: false,

@@ -1,4 +1,5 @@
-
+// 用户在文档中直接引用的lib文件。
+// 使用函数闭包特性，通过 `documentclass` 函数类进行全局信息配置，然后暴露出拥有了全局配置的、具体的 `layouts` 和 `templates` 内部函数。
 
 // 文档设置
 #import "layouts/doc.typ": doc
@@ -11,12 +12,10 @@
 // 工具函数
 #import "utils/custom-numbering.typ": custom-numbering
 #import "utils/custom-heading.typ": heading-display, active-heading, current-heading
-#import "utils/indent.typ": indent, fake-par
 #import "utils/style.typ": 字体, 字号
 #import "utils/theorem.typ": * //theorem,definition,example,proof
-// #import "utils/custom-format.typ": hint,problem
+#import "utils/custom-format.typ": *
 
-// 使用函数闭包特性，通过 `documentclass` 函数类进行全局信息配置，然后暴露出拥有了全局配置的、具体的 `layouts` 和 `templates` 内部函数。
 #let documentclass(
   twoside: false,  // 双面模式，会加入空白页，便于打印
   info: (:),
@@ -32,15 +31,15 @@
     // 将传入参数再导出
     twoside: twoside,
     info: info,
-    // 页面布局
     
+    // 主文档
     doc: (..args) => {
       doc(
         ..args,
         info: info + args.named().at("info", default: (:)),
       )
     },
-
+    // 正文部分
     mainmatter: (..args) => {
       mainmatter(
         twoside: twoside,
@@ -48,7 +47,8 @@
         ..args,
       )
     },
-
+    
+    // 附录部分
     appendix: (..args) => {
       appendix(
         ..args,
