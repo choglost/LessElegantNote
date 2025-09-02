@@ -2,7 +2,7 @@
 // 如果要更改字体、字号等内容，直接修改参数列表相关项
 
 #import "@preview/outrageous:0.4.0"
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/font-style.typ": 字号, 字体
 
 // 创建一个不可见的标题，用于给 outline 加上短标题
 #let invisible-heading(..args) = {

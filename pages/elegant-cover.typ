@@ -1,6 +1,6 @@
 // 封面页
 
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/font-style.typ": 字号, 字体
 
 #let elegant-cover(
   // documentclass 传入的参数

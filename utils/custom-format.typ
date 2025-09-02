@@ -1,6 +1,6 @@
 // 包含一些自定义的格式
 
-#import "style.typ": 字体,字号
+#import "font-style.typ": 字体,字号
 
 #let hint(body) = {
   set text(font: 字体.楷体)

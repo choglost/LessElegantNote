@@ -10,9 +10,9 @@
 #import "pages/elegant-cover.typ": elegant-cover
 #import "pages/outline-page.typ": outline-page
 // 工具函数
-#import "utils/custom-numbering.typ": custom-numbering
-#import "utils/custom-heading.typ": heading-display, active-heading, current-heading
-#import "utils/style.typ": 字体, 字号
+#import "utils/heading.typ": custom-numbering
+// #import "utils/heading.typ": heading-display, active-heading, current-heading
+#import "utils/font-style.typ": 字体, 字号
 #import "utils/theorem.typ": * //theorem,definition,example,proof
 #import "utils/custom-format.typ": *
 

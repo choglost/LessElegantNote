@@ -12,13 +12,15 @@
   fonts-display-page,// 字体测试页
   outline-page, // 目录页
 ) = documentclass(
-  // 文档信息，会显示在封面
+  // 文档信息
   info: (
+    // 封面相关
     title: ("LessElegantNote：Typst笔记模版"), // 笔记文档的名字
     author: "choglost", // 作者
     date: datetime.today(), // 时间
     cover-image: "../example/images/cover.jpg", // 封面图片
-    numbering-style:"maths" // "maths"：数学或论文风格的标题编号 1.1.1  ; "literature"：文学风格的标题编号 第一章/节
+
+    style-name:"maths" // "maths"：数学或论文风格的标题编号 1.1.1  ; "literature"：文学风格的标题编号 第一章/节 ; "book"：书记风格的标题编号 第一篇/章/节
   ),
 )
 
@@ -83,7 +85,7 @@ LessElegantNote是一个Typst笔记模板。它是在_南京大学学位论文Ty
 
 #show: doc
 #cover()
-
+#outline-page()
 #show: mainmatter
 
 = 一级标题
@@ -123,11 +125,16 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
 ==== 标题编号
 在`less-elegant-note\utils\custom-heading.typ`中自定义标题编号，已预设三种编号风格。通过`numbering-style`选择。
 
-
+== 笔记联网同步
+我是通过 VS Code + Github 的方式，来实现笔记内容在多个主机的同步。
++ 下载Git并配置用户名、邮箱和代理。
++ 在浏览器登录你的Github账号，创建一个私人仓库，用于存放Typst笔记。
++ 在VS Code中克隆两个项目，一个是我的笔记模板仓库，一个是你的私人笔记仓库
 
 = Typst基础
 
 == 文本
+=== 三种基础格式
 #grid(
   rows: 2,
   columns: 2,
@@ -152,7 +159,7 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
 )
 
 
-== 代码块
+=== 代码块
 
 // 代码块支持语法高亮。引用时需要加上 `lst:` @lst:code
 
@@ -177,7 +184,7 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
   ],
 )
 
-== 列表
+=== 列表
 
 #grid(
   rows: 2,
@@ -189,12 +196,12 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
     - 无序列表项一
     - 无序列表项二
       - 无序子列表项一
-      - 无序子列表项二
+        - 无序子列表项二
 
     + 有序列表项一
     + 有序列表项二
       + 有序子列表项一
-      + 有序子列表项二
+        + 有序子列表项二
     
     / 术语一: 术语解释
     / 术语二: 术语解释
@@ -204,12 +211,12 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
     - 无序列表项一
     - 无序列表项二
       - 无序子列表项一
-      - 无序子列表项二
+        - 无序子列表项二
     \ 
     + 有序列表项一
     + 有序列表项二
       + 有序子列表项一
-      + 有序子列表项二
+        + 有序子列表项二
     \ 
     / 术语一: 术语解释
     / 术语二: 术语解释
@@ -218,8 +225,8 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
 
 
 
-
-== 表格
+== 图表
+=== 表格
 
 // 引用@tbl:timing，引用@tbl:timing-tlt，以及@fig:cover。引用图表时，表格和图片分别需要加上 `tbl:`和`fig:` 前缀才能正常显示编号。
 
@@ -277,7 +284,7 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
 )
 
 
-== 图片
+=== 图片
 #grid(
   rows: 2,
   columns: 2,
@@ -468,7 +475,6 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
 )
 
 == 定理环境
-#show: thmrules
 
 #grid(
   rows: 2,
@@ -477,6 +483,7 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
   [代码：], [效果：],
   rect(width: 100%, height: 400pt)[
     ```typ
+    #show: thmrules
     #theorem("title")[
       #lorem(5)
     ] <thm1>
@@ -507,6 +514,7 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
     ```
   ],
   rect(width: 100%, height: 400pt)[
+    #show: thmrules
     #theorem("title")[
       #lorem(5)
     ] <thm1>

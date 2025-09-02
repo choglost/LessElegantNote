@@ -1,6 +1,6 @@
 // 字体显示测试页
 
-#import "../utils/style.typ": 字号, 字体
+#import "../utils/font-style.typ": 字号, 字体
 
 #let fonts-display-page(
   twoside: false,

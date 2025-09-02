@@ -5,9 +5,9 @@
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
 // 放在其他文件中的小工具
-#import "../utils/style.typ": 字体, 字号
-#import "../utils/custom-numbering.typ": custom-numbering
-#import "../utils/custom-heading.typ": active-heading, current-heading, heading-display
+#import "../utils/font-style.typ": 字体, 字号
+#import "../utils/heading.typ": custom-numbering,get-heading-args
+
 
 #let mainmatter(
   // documentclass 传入参数
@@ -20,14 +20,8 @@
   par-spacing: 7pt, // 段间距
   strong-font: 字体.宋体, // strong类型字体
   // 标题相关
-  // numbering-style: "literature", // 标题类型
-  heading-font: (字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体), // 标题字体，数组内分别是各级标题
-  heading-size: (字号.三号, 字号.四号, 字号.小四, 字号.五号, 字号.五号, 字号.五号), // 标题字号
-  heading-weight: ("bold", "regular", "regular", "regular", "regular", "regular"), // 标题是否加粗
-  heading-above: (20pt, 16pt, 14pt, 10pt, 7pt, 7pt), // 标题上方间距
-  heading-below: (20pt, 14pt, 10pt, 8pt, 7pt, 7pt), // 标题下方间距
-  heading-pagebreak: (true, false), // 标题是否换页
-  heading-align: (center, center, auto), // 标题居中
+  // style-name: "maths", // 标题类型
+
   heading-fill: (rgb("#004578"), rgb("#004578"), rgb("#005a9e"), rgb("#005a9e")), // 标题颜色
   // 其他参数
   strong-color: rgb("#106ebe"), // strong类型强调的颜色
@@ -35,24 +29,17 @@
   it,
 ) = {
   // 0.  默认参数
-  info = (
-    (
-      numbering-style: "literature", // 标题类型
-    )
-      + info
-  )
+  // info = (
+  //   (
+  //     // style-name: "maths", // 标题类型
+  //   )
+  //   + info
+  // )
 
   let color-blue = (rgb("#004578"), rgb("#005a9e"), rgb("#106ebe"), rgb("#0078d4"), rgb("#2b88d8"))
 
-  // 处理 heading- 开头的其他参数
-  let heading-text-args-lists = args
-    .named()
-    .pairs()
-    .filter(pair => pair.at(0).starts-with("heading-"))
-    .map(pair => (
-      pair.at(0).slice("heading-".len()),
-      pair.at(1),
-    ))
+  let heading-args=get-heading-args(info.style-name)
+
 
   // 辅助函数
   let array-at(arr, pos) = {
@@ -96,31 +83,34 @@
 
   // 2. 标题
   // 设置标题的编号numbering
-  set heading(numbering: custom-numbering.with(style: info.numbering-style))
+  set heading(numbering: custom-numbering.with(style: info.style-name))
 
   // 设置标题的字体、字号、间距
   show heading: it => {
     set text(
-      font: array-at(heading-font, it.level),
-      size: array-at(heading-size, it.level),
-      weight: array-at(heading-weight, it.level),
+      font: array-at(heading-args.font, it.level),
+      size: array-at(heading-args.size, it.level),
+      weight: array-at(heading-args.weight, it.level),
+
       fill: array-at(heading-fill, it.level),
-      ..unpairs(heading-text-args-lists.map(pair => (pair.at(0), array-at(pair.at(1), it.level)))),
+
     )
-    set block(above: array-at(heading-above, it.level), below: array-at(heading-below, it.level))
+    set block(
+      above: array-at(heading-args.above, it.level), 
+      below: array-at(heading-args.below, it.level))
     it
   }
 
   // 标题居中与自动换页
   show heading: it => {
-    if (array-at(heading-pagebreak, it.level)) {
+    if (array-at(heading-args.pagebreak, it.level)) {
       // 如果打上了 no-auto-pagebreak 标签，则不自动换页
       if ("label" not in it.fields() or str(it.label) != "no-auto-pagebreak") {
         pagebreak(weak: true)
       }
     }
-    if (array-at(heading-align, it.level) != auto) {
-      set align(array-at(heading-align, it.level))
+    if (array-at(heading-args.align, it.level) != auto) {
+      set align(array-at(heading-args.align, it.level))
       it
     } else {
       it
