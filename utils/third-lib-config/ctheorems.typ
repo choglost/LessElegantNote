@@ -1,3 +1,4 @@
+// 第三方包 定理
 #import "@preview/ctheorems:1.1.3": *
 
 // 定义定理环境
@@ -17,26 +18,4 @@
 
 #let solution = thmplain("solution","答", base: "exercise", inset: 0em,).with(numbering: none)
 
-
-// Shorthand for vectors
-#let va = $bold(a)$
-#let vb = $bold(b)$
-#let vx = $bold(x)$
-#let vy = $bold(y)$
-#let vz = $bold(z)$
-#let vv = $bold(v)$
-#let vw = $bold(w)$
-#let ve = $bold(e)$
-
-// Mapping arrow
-#let mapsto = $arrow.r.bar$
-
-// Operators
-#let grad = x => $nabla #x$
-#let ip = (x, y) => $angle.l #x, #y angle.r$
-#let pp = (x, y) => $(diff #x) / (diff #y)$
-#let dd = (x, y) => $(d #x) / (d #y)$
-#let Df = $D f$
-#let Dg = $D g$
-#let DT = $D T$
 

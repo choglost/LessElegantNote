@@ -1,6 +1,6 @@
 // 模板示例。包含模板介绍和一些Typst用法。
-
 #import "../lib.typ": *
+#import "../utils/third-lib-config/ctheorems.typ": * //theorem,definition,example,proof
 
 #let (
   // 布局
@@ -19,7 +19,6 @@
     author: "choglost", // 作者
     date: datetime.today(), // 时间
     cover-image: "../example/images/cover.jpg", // 封面图片
-
     style-name:"maths" // "maths"：数学或论文风格的标题编号 1.1.1  ; "literature"：文学风格的标题编号 第一章/节 ; "book"：书记风格的标题编号 第一篇/章/节
   ),
 )
@@ -79,7 +78,7 @@ LessElegantNote是一个Typst笔记模板。它是在_南京大学学位论文Ty
     author: "张三",
     date: datetime.today(),
     cover-image: none,
-    numbering-style:"maths"
+    style-name:"maths"
   ),
 )
 
@@ -474,6 +473,7 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
   ],
 )
 
+= 第三方包
 == 定理环境
 
 #grid(
@@ -552,6 +552,8 @@ cover-image: none,      // 封面图片，注意是相对于pages/elgeant-cover.
 // #if twoside {
 //   pagebreak() + " "
 // }
+
+
 
 // == 个人总结的几条原则
 // + 减少四级或更深标题的使用，只有当三级标题下的内容有明显分类，各自有小点时才使用四级标题；否则使用的无序列表形式

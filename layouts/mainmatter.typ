@@ -60,7 +60,12 @@
 
   set par(leading: par-leading, justify: true, first-line-indent: (amount: 2em,all: true), spacing: par-spacing)
 
+  
+
   // 1.2 特殊类型文本
+  // 下划线
+  set underline(offset: .15em, stroke: .05em, evade: false)
+  
   // 代码块
   show: codly-init.with()
   codly(display-name: true) // 是否在代码块右上角显示语言名
@@ -176,6 +181,10 @@
     #text(counter(page).display("1"))
   ])
   counter(page).update(1)
+  
 
+  
+
+  // 
   it
 }

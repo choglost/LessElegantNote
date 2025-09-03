@@ -4,7 +4,7 @@
 #let custom-numbering(style: "literature", ..args) = {
   let literature = ("第一章 ", "第一节 ", "一、", "　　(一)")
   let maths = ("1  ", "1.1 ", "　1.1.1 ", "　　(1)")
-  let book = ("第一篇 ", "第一章 ", "第一节 ", "一、", "　(一)","　　(1)")
+  let book = ("第一篇 ", "第一章 ", "第一节 ", "一、", "　(一)","　(1)")
   // let enumlist = ("1.", "①", "i.") // 无法实现，因为列表的参数深度只有1，不能通过下列方法判断是几级标题从而分别标号
 
   let numbering-style = ""
@@ -51,7 +51,7 @@
   if style=="book"{
     heading-args=(
       style-name:"book",
-      numbering:("第一篇 ", "第一章 ", "第一节 ", "一、", "　(一)","　　(1)"),
+      numbering:("第一篇 ", "第一章 ", "第一节 ", "一、", "　(一)","　(1)"),
       font: (字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体), // 标题字体，数组内分别是各级标题
       size: (字号.三号, 字号.四号, 字号.小四, 字号.五号, 字号.五号, 字号.五号), // 标题字号
       weight: ("bold", "regular", "regular", "regular", "regular", "regular"), // 标题是否加粗

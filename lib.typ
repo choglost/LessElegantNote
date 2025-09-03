@@ -13,7 +13,6 @@
 #import "utils/heading.typ": custom-numbering
 // #import "utils/heading.typ": heading-display, active-heading, current-heading
 #import "utils/font-style.typ": 字体, 字号
-#import "utils/theorem.typ": * //theorem,definition,example,proof
 #import "utils/custom-format.typ": *
 
 #let documentclass(
