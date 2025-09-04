@@ -1,7 +1,7 @@
 // 正文设置。在这里修改正文的字体、字号等。
 
 // 第三方包
-#import "@preview/i-figured:0.2.4"
+// #import "@preview/i-figured:0.2.4"
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
 // 放在其他文件中的小工具
@@ -149,8 +149,8 @@
     set block(breakable: true) // 设置图表的跨页展示
     it
   }
-  show heading: i-figured.reset-counters
-  show figure: i-figured.show-figure // figure 的编号
+  // show heading: i-figured.reset-counters
+  // show figure: i-figured.show-figure // figure 的编号
 
   show figure.where(kind: table): set figure.caption(position: top) // 表格表头置顶
   set figure.caption(separator: "  ") // 表头不用冒号用空格分割

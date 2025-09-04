@@ -1,6 +1,7 @@
-// https://typst.app/universe/package/frame-it
 /*
+// https://typst.app/universe/package/frame-it
 Quick Start
+
 #import "@preview/frame-it:1.2.0": *
 #let (example, feature, variant, syntax) = frames(
   feature: ("Feature",),
@@ -44,27 +45,37 @@ Quick Start
   solution:("答",)
 )
 
+#let (remark,hint)= frames(
+  kind: "remark",
+  remark:("注",gray),
+  hint:("提示",)
+)
+
 #show: frame-style(kind:"theorem",styles.boxy)
 #show: frame-style(kind: "exercise",styles.thmbox)
 #show: frame-style(kind: "answer",styles.hint)
+#show: frame-style(kind: "remark",styles.hint)
 
 
-#theorem[标题][可选标签][Body, i.e. large content block for the frame.]
+// #theorem[标题][可选标签][Body, i.e. large content block for the frame.]
 
-#lemma[标题][可选标签][Body, i.e. large content block for the frame.]
+// #lemma[标题][可选标签][Body, i.e. large content block for the frame.]
 
-#corollary[标题][可选标签][Body, i.e. large content block for the frame.]
+// #corollary[标题][可选标签][Body, i.e. large content block for the frame.]
 
-#definition[标题][可选标签][Body, i.e. large content block for the frame.]
-
-
-#example[][Body, i.e. large content block for the frame.]
-
-#exercise[][Body, i.e. large content block for the frame.]
+// #definition[标题][可选标签][Body, i.e. large content block for the frame.]
 
 
-#proof[][Body, i.e. large content block for the frame.]
+// #example[][Body, i.e. large content block for the frame.]
 
-#solution[][Body, i.e. large content block for the frame.]
+// #exercise[][Body, i.e. large content block for the frame.]
+
+
+// #proof[][Body, i.e. large content block for the frame.]
+
+// #solution[][Body, i.e. large content block for the frame.]
+
+// #remark[][Body, i.e. large content block for the frame.]
+
 
 
