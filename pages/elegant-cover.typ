@@ -13,7 +13,7 @@
     title: ("LessElegantNote：Typst笔记模版"),
     author: "Choglost",
     date: datetime.today(),
-    cover-image: "",
+    cover-image: none,
   ) + info
 
   // 2.  对参数进行处理
@@ -32,7 +32,7 @@
 
   set page(margin: 0pt)
 
-  if info.cover-image != "" {
+  if info.cover-image != none {
     image(info.cover-image, width: 100%, height: 55%)
     v(20pt)
   } else {

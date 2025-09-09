@@ -62,6 +62,20 @@
     )
   }
 
+  if style=="literature"{
+    heading-args=(
+      style-name:"literature",
+      numbering:("第一章 ", "第一节 ", "一、", "　(一)","　(1)"),
+      font: (字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体, 字体.黑体), // 标题字体，数组内分别是各级标题
+      size: (字号.三号, 字号.四号, 字号.小四, 字号.五号, 字号.五号), // 标题字号
+      weight: ("bold", "regular", "regular", "regular", "regular"), // 标题是否加粗
+      above: (20pt, 16pt, 14pt, 10pt, 7pt), // 标题上方间距
+      below: (20pt, 14pt, 10pt, 8pt, 7pt), // 标题下方间距
+      pagebreak: (true, false), // 标题是否换页
+      align: (center,auto), // 标题居中
+    )
+  }
+
   return heading-args
 }
 
