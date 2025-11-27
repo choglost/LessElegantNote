@@ -14,10 +14,15 @@
 
 <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/chinese-example.png" height="400px">  <img src="https://github.com/choglost/LessElegantNote/blob/main/example/images/maths-example.png" height="400px">
 
-## 使用指南 Mannual
-1. 下载本项目并解压。
-2. 在vscode中打开项目文件夹，安装插件Tinymist Typst。
-3. 参考 [less-elegant-note.typ](https://github.com/choglost/LessElegantNote/blob/main/example/less-elegant-note.typ)，创建你自己的笔记。
+## 使用指南(傻瓜版) Mannual
+1. 下载VS Code并安装 （可以选择System Installer，为Windows系统的所有用户安装）
+https://code.visualstudio.com/Download#
+
+2. 打开VS Code，安装插件。在左边栏选择方块图案（即插件商店），搜索Chinese下载中文语言包，搜索Typst下载Tinymist Typst插件。
+
+3. 打开Github，点击绿色按钮下载ZIP，并解压。 https://github.com/choglost/LessElegantNote
+
+4. 用VS Code打开已解压的模板文件夹，参考 [example/less-elegant-note.typ](https://github.com/choglost/LessElegantNote/blob/main/example/less-elegant-note.typ)，创建你自己的笔记。
 
 ## 学习文档和社区 Community
 * [Typst官方文档](https://typst.app/docs)
